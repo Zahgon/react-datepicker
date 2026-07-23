@@ -23,90 +23,38 @@ interface WeekNumberProps {
 
 export default class WeekNumber extends Component<WeekNumberProps> {
   static get defaultProps() {
-    return {
-      ariaLabelPrefix: "week ",
-    };
+      throw new Error("STUB");
   }
 
   componentDidMount(): void {
-    this.handleFocusWeekNumber();
+      throw new Error("STUB");
   }
 
   componentDidUpdate(prevProps: WeekNumberProps): void {
-    this.handleFocusWeekNumber(prevProps);
+      throw new Error("STUB");
   }
 
   weekNumberEl = createRef<HTMLDivElement>();
 
   handleClick = (event: React.MouseEvent<HTMLDivElement>): void => {
-    if (this.props.onClick) {
-      this.props.onClick(event);
-    }
+      throw new Error("STUB");
   };
 
   handleOnKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-    const eventKey = event.key;
-    if (eventKey === KeyType.Space) {
-      event.preventDefault();
-      event.key = KeyType.Enter;
-    }
-
-    this.props.handleOnKeyDown?.(event);
+      throw new Error("STUB");
   };
 
   isKeyboardSelected = (): boolean =>
-    !this.props.disabledKeyboardNavigation &&
-    !isSameDay(this.props.date, this.props.selected) &&
-    isSameDay(this.props.date, this.props.preSelection);
+    { throw new Error("STUB"); };
 
   getTabIndex = (): number =>
-    this.props.showWeekPicker &&
-    this.props.showWeekNumber &&
-    (this.isKeyboardSelected() ||
-      (isSameDay(this.props.date, this.props.selected) &&
-        isSameDay(this.props.preSelection, this.props.selected)))
-      ? 0
-      : -1;
+    { throw new Error("STUB"); };
 
   // various cases when we need to apply focus to the preselected week-number
   // focus the week-number on mount/update so that keyboard navigation works while cycling through months with up or down keys (not for prev and next month buttons)
   // prevent focus for these activeElement cases so we don't pull focus from the input as the calendar opens
   handleFocusWeekNumber = (prevProps?: Partial<WeekNumberProps>): void => {
-    let shouldFocusWeekNumber = false;
-    // only do this while the input isn't focused
-    // otherwise, typing/backspacing the date manually may steal focus away from the input
-    if (
-      this.getTabIndex() === 0 &&
-      !prevProps?.isInputFocused &&
-      isSameDay(this.props.date, this.props.preSelection)
-    ) {
-      // there is currently no activeElement and not inline
-      if (!document.activeElement || document.activeElement === document.body) {
-        shouldFocusWeekNumber = true;
-      }
-      // inline version:
-      // do not focus on initial render to prevent autoFocus issue
-      // focus after month has changed via keyboard
-      if (this.props.inline && !this.props.shouldFocusDayInline) {
-        shouldFocusWeekNumber = false;
-      }
-      // the activeElement is in the container, and it is another instance of WeekNumber
-      if (
-        this.props.containerRef &&
-        this.props.containerRef.current &&
-        this.props.containerRef.current.contains(document.activeElement) &&
-        document.activeElement &&
-        document.activeElement.classList.contains(
-          "react-datepicker__week-number",
-        )
-      ) {
-        shouldFocusWeekNumber = true;
-      }
-    }
-
-    shouldFocusWeekNumber &&
-      this.weekNumberEl.current &&
-      this.weekNumberEl.current.focus({ preventScroll: true });
+      throw new Error("STUB");
   };
 
   render(): React.ReactElement {

@@ -146,446 +146,143 @@ interface DayProps extends Pick<
  */
 export default class Day extends Component<DayProps> {
   componentDidMount() {
-    this.handleFocusDay();
+      throw new Error("STUB");
   }
 
   componentDidUpdate() {
-    this.handleFocusDay();
+      throw new Error("STUB");
   }
 
   dayEl = createRef<HTMLDivElement>();
 
   handleClick: DayProps["onClick"] = (event) => {
-    if (!this.isDisabled() && this.props.onClick) {
-      this.props.onClick(event);
-    }
+      throw new Error("STUB");
   };
 
   handleMouseEnter: DayProps["onMouseEnter"] = (event) => {
-    if (!this.isDisabled() && this.props.onMouseEnter) {
-      this.props.onMouseEnter(event);
-    }
+      throw new Error("STUB");
   };
 
   handleOnKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
-    const eventKey = event.key;
-    if (eventKey === KeyType.Space) {
-      event.preventDefault();
-      event.key = KeyType.Enter;
-    }
-
-    this.props.handleOnKeyDown?.(event);
+      throw new Error("STUB");
   };
 
   isSameDay = (other: Date | null | undefined) =>
     isSameDay(this.props.day, other);
 
   isKeyboardSelected = () => {
-    if (this.props.disabledKeyboardNavigation) {
-      return false;
-    }
-
-    const isSelectedDate = this.props.selectsMultiple
-      ? this.props.selectedDates?.some((date) => this.isSameDayOrWeek(date))
-      : this.isSameDayOrWeek(this.props.selected);
-
-    const isDisabled =
-      this.props.preSelection && this.isDisabled(this.props.preSelection);
-
-    return (
-      !isSelectedDate &&
-      this.isSameDayOrWeek(this.props.preSelection) &&
-      !isDisabled
-    );
+      throw new Error("STUB");
   };
 
   isDisabled = (day = this.props.day) =>
     // Almost all props previously were passed as this.props w/o proper typing with prop-types
     // after the migration to TS i made it explicit
-    isDayDisabled(day, {
-      minDate: this.props.minDate,
-      maxDate: this.props.maxDate,
-      excludeDates: this.props.excludeDates,
-      excludeDateIntervals: this.props.excludeDateIntervals,
-      includeDateIntervals: this.props.includeDateIntervals,
-      includeDates: this.props.includeDates,
-      filterDate: this.props.filterDate,
-      disabled: this.props.disabled,
-    });
+    { throw new Error("STUB"); };
 
   isExcluded = () =>
     // Almost all props previously were passed as this.props w/o proper typing with prop-types
     // after the migration to TS i made it explicit
-    isDayExcluded(this.props.day, {
-      excludeDates: this.props.excludeDates,
-      excludeDateIntervals: this.props.excludeDateIntervals,
-    });
+    { throw new Error("STUB"); };
 
   isStartOfWeek = () =>
-    isSameDay(
-      this.props.day,
-      getStartOfWeek(
-        this.props.day,
-        this.props.locale,
-        this.props.calendarStartDay,
-      ),
-    );
+    { throw new Error("STUB"); };
 
   isSameWeek = (other?: Date | null) =>
-    this.props.showWeekPicker &&
-    isSameDay(
-      other,
-      getStartOfWeek(
-        this.props.day,
-        this.props.locale,
-        this.props.calendarStartDay,
-      ),
-    );
+    { throw new Error("STUB"); };
 
   isSameDayOrWeek = (other?: Date | null) =>
-    this.isSameDay(other) || this.isSameWeek(other);
+    { throw new Error("STUB"); };
 
   getHighLightedClass = () => {
-    const { day, highlightDates } = this.props;
-
-    if (!highlightDates) {
-      return false;
-    }
-
-    // Looking for className in the Map of {'day string, 'className'}
-    const dayStr = formatDate(day, "MM.dd.yyyy");
-    return highlightDates.get(dayStr);
+      throw new Error("STUB");
   };
 
   // Function to return the array containing className associated to the date
   getHolidaysClass = () => {
-    const { day, holidays } = this.props;
-    if (!holidays) {
-      // For type consistency no other reasons
-      return [undefined];
-    }
-    const dayStr = formatDate(day, "MM.dd.yyyy");
-    // Looking for className in the Map of {day string: {className, holidayName}}
-    if (holidays.has(dayStr)) {
-      return [holidays.get(dayStr)?.className];
-    }
-
-    // For type consistency no other reasons
-    return [undefined];
+      throw new Error("STUB");
   };
 
   isInRange = () => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return isDayInRange(day, startDate, endDate);
+      throw new Error("STUB");
   };
 
   isInSelectingRange = () => {
-    const {
-      day,
-      selectsStart,
-      selectsEnd,
-      selectsRange,
-      selectsDisabledDaysInRange,
-      startDate,
-      swapRange,
-      endDate,
-    } = this.props;
-
-    const selectingDate = this.props.selectingDate ?? this.props.preSelection;
-
-    // Don't highlight days outside the current month
-    if (this.isAfterMonth() || this.isBeforeMonth()) {
-      return false;
-    }
-
-    if (
-      !(selectsStart || selectsEnd || selectsRange) ||
-      !selectingDate ||
-      (!selectsDisabledDaysInRange && this.isDisabled())
-    ) {
-      return false;
-    }
-
-    if (
-      selectsStart &&
-      endDate &&
-      (isBefore(selectingDate, endDate) || isEqual(selectingDate, endDate))
-    ) {
-      return isDayInRange(day, selectingDate, endDate);
-    }
-
-    if (
-      selectsEnd &&
-      startDate &&
-      (isAfter(selectingDate, startDate) || isEqual(selectingDate, startDate))
-    ) {
-      return isDayInRange(day, startDate, selectingDate);
-    }
-
-    if (selectsRange && startDate && !endDate) {
-      if (isEqual(selectingDate, startDate)) {
-        return isDayInRange(day, startDate, selectingDate);
-      }
-
-      if (isAfter(selectingDate, startDate)) {
-        return isDayInRange(day, startDate, selectingDate);
-      }
-
-      if (swapRange && isBefore(selectingDate, startDate)) {
-        return isDayInRange(day, selectingDate, startDate);
-      }
-    }
-
-    return false;
+      throw new Error("STUB");
   };
 
   isSelectingRangeStart = () => {
-    if (!this.isInSelectingRange()) {
-      return false;
-    }
-
-    const { day, startDate, selectsStart, swapRange, selectsRange } =
-      this.props;
-    const selectingDate = this.props.selectingDate ?? this.props.preSelection;
-
-    if (selectsStart) {
-      return isSameDay(day, selectingDate);
-    }
-
-    if (selectsRange && swapRange && startDate && selectingDate) {
-      return isSameDay(
-        day,
-        isBefore(selectingDate, startDate) ? selectingDate : startDate,
-      );
-    }
-
-    return isSameDay(day, startDate);
+      throw new Error("STUB");
   };
 
   isSelectingRangeEnd = () => {
-    if (!this.isInSelectingRange()) {
-      return false;
-    }
-
-    const { day, endDate, selectsEnd, selectsRange, swapRange, startDate } =
-      this.props;
-    const selectingDate = this.props.selectingDate ?? this.props.preSelection;
-
-    if (selectsEnd) {
-      return isSameDay(day, selectingDate);
-    }
-
-    if (selectsRange && swapRange && startDate && selectingDate) {
-      return isSameDay(
-        day,
-        isBefore(selectingDate, startDate) ? startDate : selectingDate,
-      );
-    }
-
-    if (selectsRange) {
-      return isSameDay(day, selectingDate);
-    }
-
-    return isSameDay(day, endDate);
+      throw new Error("STUB");
   };
 
   isRangeStart = () => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return isSameDay(startDate, day);
+      throw new Error("STUB");
   };
 
   isRangeEnd = () => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return isSameDay(endDate, day);
+      throw new Error("STUB");
   };
 
   isWeekend = () => {
-    const weekday = getDay(this.props.day);
-    return weekday === 0 || weekday === 6;
+      throw new Error("STUB");
   };
 
   isAfterMonth = () => {
-    return (
-      this.props.month !== undefined &&
-      (this.props.month + 1) % 12 === getMonth(this.props.day)
-    );
+      throw new Error("STUB");
   };
 
   isBeforeMonth = () => {
-    return (
-      this.props.month !== undefined &&
-      (getMonth(this.props.day) + 1) % 12 === this.props.month
-    );
+      throw new Error("STUB");
   };
 
-  isCurrentDay = () => this.isSameDay(newDate());
+  isCurrentDay = () => { throw new Error("STUB"); };
 
   isSelected = () => {
-    if (this.props.selectsMultiple) {
-      return this.props.selectedDates?.some((date) =>
-        this.isSameDayOrWeek(date),
-      );
-    }
-    return this.isSameDayOrWeek(this.props.selected);
+      throw new Error("STUB");
   };
 
   getClassNames = (date: Date) => {
-    const dayClassName = this.props.dayClassName
-      ? this.props.dayClassName(date)
-      : undefined;
-    return clsx(
-      "react-datepicker__day",
-      dayClassName,
-      "react-datepicker__day--" + getDayOfWeekCode(this.props.day),
-      {
-        "react-datepicker__day--disabled": this.isDisabled(),
-        "react-datepicker__day--excluded": this.isExcluded(),
-        "react-datepicker__day--selected": this.isSelected(),
-        "react-datepicker__day--keyboard-selected": this.isKeyboardSelected(),
-        "react-datepicker__day--range-start": this.isRangeStart(),
-        "react-datepicker__day--range-end": this.isRangeEnd(),
-        "react-datepicker__day--in-range": this.isInRange(),
-        "react-datepicker__day--in-selecting-range": this.isInSelectingRange(),
-        "react-datepicker__day--selecting-range-start":
-          this.isSelectingRangeStart(),
-        "react-datepicker__day--selecting-range-end":
-          this.isSelectingRangeEnd(),
-        "react-datepicker__day--today": this.isCurrentDay(),
-        "react-datepicker__day--weekend": this.isWeekend(),
-        "react-datepicker__day--outside-month":
-          this.isAfterMonth() || this.isBeforeMonth(),
-      },
-      this.getHighLightedClass(),
-      this.getHolidaysClass(),
-    );
+      throw new Error("STUB");
   };
 
   getAriaLabel = () => {
-    const {
-      day,
-      ariaLabelPrefixWhenEnabled = "Choose",
-      ariaLabelPrefixWhenDisabled = "Not available",
-    } = this.props;
-
-    const prefix =
-      this.isDisabled() || this.isExcluded()
-        ? ariaLabelPrefixWhenDisabled
-        : ariaLabelPrefixWhenEnabled;
-
-    return `${prefix} ${formatDate(day, "PPPP", this.props.locale)}`;
+      throw new Error("STUB");
   };
 
   // A function to return the holiday's name as title's content
   getTitle = () => {
-    const { day, holidays = new Map(), excludeDates } = this.props;
-    const compareDt = formatDate(day, "MM.dd.yyyy");
-    const titles = [];
-    if (holidays.has(compareDt)) {
-      titles.push(...holidays.get(compareDt).holidayNames);
-    }
-    if (this.isExcluded()) {
-      titles.push(
-        excludeDates
-          ?.filter((excludeDate) => {
-            if (excludeDate instanceof Date) {
-              return isSameDay(excludeDate, day);
-            }
-            return isSameDay(excludeDate?.date, day);
-          })
-          .map((excludeDate) => {
-            if (excludeDate instanceof Date) {
-              return undefined;
-            }
-            return excludeDate?.message;
-          }),
-      );
-    }
-    // I'm not sure that this is a right output, but all tests are green
-    return titles.join(", ");
+      throw new Error("STUB");
   };
 
   getTabIndex = () => {
-    const selectedDay = this.props.selected;
-    const preSelectionDay = this.props.preSelection;
-    const tabIndex =
-      !(
-        this.props.showWeekPicker &&
-        (this.props.showWeekNumber || !this.isStartOfWeek())
-      ) &&
-      (this.isKeyboardSelected() ||
-        (this.isSameDay(selectedDay) &&
-          isSameDay(preSelectionDay, selectedDay)))
-        ? 0
-        : -1;
-
-    return tabIndex;
+      throw new Error("STUB");
   };
 
   // various cases when we need to apply focus to the preselected day
   // focus the day on mount/update so that keyboard navigation works while cycling through months with up or down keys (not for prev and next month buttons)
   // prevent focus for these activeElement cases so we don't pull focus from the input as the calendar opens
   handleFocusDay = () => {
-    // only do this while the input isn't focused
-    // otherwise, typing/backspacing the date manually may steal focus away from the input
-    this.shouldFocusDay() && this.dayEl.current?.focus({ preventScroll: true });
+      throw new Error("STUB");
   };
 
   private shouldFocusDay() {
-    let shouldFocusDay = false;
-    if (this.getTabIndex() === 0 && this.isSameDay(this.props.preSelection)) {
-      // there is currently no activeElement and not inline
-      if (!document.activeElement || document.activeElement === document.body) {
-        shouldFocusDay = true;
-      }
-      // inline version:
-      // do not focus on initial render to prevent autoFocus issue
-      // focus after month has changed via keyboard
-      if (this.props.inline && !this.props.shouldFocusDayInline) {
-        shouldFocusDay = false;
-      }
-      if (this.isDayActiveElement()) {
-        shouldFocusDay = true;
-      }
-      if (this.isDuplicateDay()) {
-        shouldFocusDay = false;
-      }
-    }
-    return shouldFocusDay;
+      throw new Error("STUB");
   }
 
   // the activeElement is in the container, and it is another instance of Day
   private isDayActiveElement() {
-    return (
-      this.props.containerRef?.current?.contains(document.activeElement) &&
-      document.activeElement?.classList.contains("react-datepicker__day")
-    );
+      throw new Error("STUB");
   }
 
   private isDuplicateDay() {
-    return (
-      //day is one of the non rendered duplicate days
-      (this.props.monthShowsDuplicateDaysEnd && this.isAfterMonth()) ||
-      (this.props.monthShowsDuplicateDaysStart && this.isBeforeMonth())
-    );
+      throw new Error("STUB");
   }
 
   renderDayContents = () => {
-    if (this.props.monthShowsDuplicateDaysEnd && this.isAfterMonth())
-      return null;
-    if (this.props.monthShowsDuplicateDaysStart && this.isBeforeMonth())
-      return null;
-    return this.props.renderDayContents
-      ? this.props.renderDayContents(getDate(this.props.day), this.props.day)
-      : getDate(this.props.day);
+      throw new Error("STUB");
   };
 
   render = () => (

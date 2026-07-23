@@ -44,35 +44,5 @@ export interface WithFloatingProps {
 export default function withFloating<T extends FloatingProps>(
   Component: React.ComponentType<T>,
 ) {
-  type R = Omit<T, "popperProps"> & WithFloatingProps;
-  function WithFloating(props: R): React.ReactElement {
-    const hidePopper: boolean =
-      typeof props.hidePopper === "boolean" ? props.hidePopper : true;
-    const arrowRef = useRef<SVGSVGElement>(null);
-    const floatingProps = useFloating({
-      open: !hidePopper,
-      whileElementsMounted: autoUpdate,
-      placement: props.popperPlacement,
-      middleware: [
-        flip({ padding: 15 }),
-        offset(10),
-        // eslint-disable-next-line react-hooks/refs -- Floating UI requires refs to be passed during render
-        arrow({ element: arrowRef }),
-        ...(props.popperModifiers ?? []),
-      ],
-      ...props.popperProps,
-    });
-
-    const componentProps = {
-      ...props,
-      hidePopper,
-      popperProps: { ...floatingProps, arrowRef },
-    } as unknown as T;
-
-    return <Component {...componentProps} />;
-  }
-
-  WithFloating.displayName = `withFloating(${Component.displayName || Component.name || "Component"})`;
-
-  return WithFloating;
+    throw new Error("STUB");
 }

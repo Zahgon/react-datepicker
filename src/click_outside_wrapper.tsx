@@ -18,36 +18,16 @@ const useDetectClickOutside = (
   const ref = useRef<HTMLDivElement | null>(null);
   const onClickOutsideRef = useRef(onClickOutside);
   useEffect(() => {
-    onClickOutsideRef.current = onClickOutside;
+      throw new Error("STUB");
   }, [onClickOutside]);
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
-      const target =
-        (event.composed &&
-          event.composedPath &&
-          event
-            .composedPath()
-            .find((eventTarget) => eventTarget instanceof Node)) ||
-        event.target;
-      if (ref.current && !ref.current.contains(target as Node)) {
-        if (
-          !(
-            ignoreClass &&
-            target instanceof HTMLElement &&
-            target.classList.contains(ignoreClass)
-          )
-        ) {
-          onClickOutsideRef.current?.(event);
-        }
-      }
-    },
+          throw new Error("STUB");
+      },
     [ignoreClass],
   );
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+      throw new Error("STUB");
   }, [handleClickOutside]);
   return ref;
 };
@@ -60,19 +40,5 @@ export const ClickOutsideWrapper: React.FC<ClickOutsideWrapperProps> = ({
   style,
   ignoreClass,
 }) => {
-  const detectRef = useDetectClickOutside(onClickOutside, ignoreClass);
-  return (
-    <div
-      className={className}
-      style={style}
-      ref={(node: HTMLDivElement | null) => {
-        detectRef.current = node;
-        if (containerRef) {
-          containerRef.current = node;
-        }
-      }}
-    >
-      {children}
-    </div>
-  );
+    throw new Error("STUB");
 };

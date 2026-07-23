@@ -79,13 +79,7 @@ function getMonthColumnsLayout(
   showFourColumnMonthYearPicker?: boolean,
   showTwoColumnMonthYearPicker?: boolean,
 ) {
-  if (showFourColumnMonthYearPicker) {
-    return MONTH_COLUMNS_LAYOUT.FOUR_COLUMNS;
-  }
-  if (showTwoColumnMonthYearPicker) {
-    return MONTH_COLUMNS_LAYOUT.TWO_COLUMNS;
-  }
-  return MONTH_COLUMNS_LAYOUT.THREE_COLUMNS;
+    throw new Error("STUB");
 }
 
 interface WeekProps extends React.ComponentPropsWithoutRef<typeof Week> {}
@@ -238,30 +232,18 @@ interface MonthProps extends Omit<
  * ```
  */
 export default class Month extends Component<MonthProps> {
-  MONTH_REFS = [...Array(12)].map(() => createRef<HTMLDivElement>());
-  QUARTER_REFS = [...Array(4)].map(() => createRef<HTMLDivElement>());
+  MONTH_REFS = [...Array(12)].map(() => { throw new Error("STUB"); });
+  QUARTER_REFS = [...Array(4)].map(() => { throw new Error("STUB"); });
 
   isDisabled = (day: Date) =>
     // Almost all props previously were passed as this.props w/o proper typing with prop-types
     // after the migration to TS i made it explicit
-    isDayDisabled(day, {
-      minDate: this.props.minDate,
-      maxDate: this.props.maxDate,
-      excludeDates: this.props.excludeDates,
-      excludeDateIntervals: this.props.excludeDateIntervals,
-      includeDateIntervals: this.props.includeDateIntervals,
-      includeDates: this.props.includeDates,
-      filterDate: this.props.filterDate,
-      disabled: this.props.disabled,
-    });
+    { throw new Error("STUB"); };
 
   isExcluded = (day: Date) =>
     // Almost all props previously were passed as this.props w/o proper typing with prop-types
     // after the migration to TS i made it explicit
-    isDayExcluded(day, {
-      excludeDates: this.props.excludeDates,
-      excludeDateIntervals: this.props.excludeDateIntervals,
-    });
+    { throw new Error("STUB"); };
 
   handleDayClick = (
     day: Date,
@@ -269,266 +251,81 @@ export default class Month extends Component<MonthProps> {
       | React.MouseEvent<HTMLDivElement>
       | React.KeyboardEvent<HTMLDivElement>,
   ) => {
-    this.props.onDayClick?.(day, event, this.props.orderInDisplay);
+      throw new Error("STUB");
   };
 
   handleDayMouseEnter = (day: Date) => {
-    this.props.onDayMouseEnter?.(day);
+      throw new Error("STUB");
   };
 
   handleMouseLeave = () => {
-    this.props.onMouseLeave?.();
+      throw new Error("STUB");
   };
 
   isRangeStartMonth = (m: number) => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return isSameMonth(setMonth(day, m), startDate);
+      throw new Error("STUB");
   };
 
   isRangeStartQuarter = (q: number) => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return isSameQuarter(setQuarter(day, q), startDate);
+      throw new Error("STUB");
   };
 
   isRangeEndMonth = (m: number) => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return isSameMonth(setMonth(day, m), endDate);
+      throw new Error("STUB");
   };
 
   isRangeEndQuarter = (q: number) => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return isSameQuarter(setQuarter(day, q), endDate);
+      throw new Error("STUB");
   };
 
   isInSelectingRangeMonth = (m: number) => {
-    const { day, selectsStart, selectsEnd, selectsRange, startDate, endDate } =
-      this.props;
-
-    const selectingDate = this.props.selectingDate ?? this.props.preSelection;
-
-    if (!(selectsStart || selectsEnd || selectsRange) || !selectingDate) {
-      return false;
-    }
-
-    if (selectsStart && endDate) {
-      return isMonthInRange(selectingDate, endDate, m, day);
-    }
-
-    if (selectsEnd && startDate) {
-      return isMonthInRange(startDate, selectingDate, m, day);
-    }
-
-    if (selectsRange && startDate && !endDate) {
-      return isMonthInRange(startDate, selectingDate, m, day);
-    }
-
-    return false;
+      throw new Error("STUB");
   };
 
   isSelectingMonthRangeStart = (m: number) => {
-    if (!this.isInSelectingRangeMonth(m)) {
-      return false;
-    }
-
-    const { day, startDate, selectsStart } = this.props;
-    const _month = setMonth(day, m);
-    const selectingDate = this.props.selectingDate ?? this.props.preSelection;
-
-    if (selectsStart) {
-      return isSameMonth(_month, selectingDate);
-    } else {
-      return isSameMonth(_month, startDate);
-    }
+      throw new Error("STUB");
   };
 
   isSelectingMonthRangeEnd = (m: number) => {
-    if (!this.isInSelectingRangeMonth(m)) {
-      return false;
-    }
-
-    const { day, endDate, selectsEnd, selectsRange } = this.props;
-    const _month = setMonth(day, m);
-    const selectingDate = this.props.selectingDate ?? this.props.preSelection;
-
-    if (selectsEnd || selectsRange) {
-      return isSameMonth(_month, selectingDate);
-    } else {
-      return isSameMonth(_month, endDate);
-    }
+      throw new Error("STUB");
   };
 
   isInSelectingRangeQuarter = (q: number) => {
-    const { day, selectsStart, selectsEnd, selectsRange, startDate, endDate } =
-      this.props;
-
-    const selectingDate = this.props.selectingDate ?? this.props.preSelection;
-
-    if (!(selectsStart || selectsEnd || selectsRange) || !selectingDate) {
-      return false;
-    }
-
-    if (selectsStart && endDate) {
-      return isQuarterInRange(selectingDate, endDate, q, day);
-    }
-
-    if (selectsEnd && startDate) {
-      return isQuarterInRange(startDate, selectingDate, q, day);
-    }
-
-    if (selectsRange && startDate && !endDate) {
-      return isQuarterInRange(startDate, selectingDate, q, day);
-    }
-
-    return false;
+      throw new Error("STUB");
   };
 
   isWeekInMonth = (startOfWeek: Date) => {
-    const day = this.props.day;
-    const endOfWeek = addDays(startOfWeek, 6);
-    return isSameMonth(startOfWeek, day) || isSameMonth(endOfWeek, day);
+      throw new Error("STUB");
   };
 
   isCurrentMonth = (day: Date, m: number) =>
-    getYear(day) === getYear(newDate()) && m === getMonth(newDate());
+    { throw new Error("STUB"); };
 
   isCurrentQuarter = (day: Date, q: number) =>
-    getYear(day) === getYear(newDate()) && q === getQuarter(newDate());
+    { throw new Error("STUB"); };
 
   isSelectedMonth = (day: Date, m: number, selected: Date) =>
-    getMonth(selected) === m && getYear(day) === getYear(selected);
+    { throw new Error("STUB"); };
 
   isSelectMonthInList = (day: Date, m: number, selectedDates: Date[]) =>
-    selectedDates.some((selectedDate) =>
-      this.isSelectedMonth(day, m, selectedDate),
-    );
+    { throw new Error("STUB"); };
 
   isSelectedQuarter = (day: Date, q: number, selected: Date): boolean =>
-    getQuarter(selected) === q && getYear(day) === getYear(selected);
+    { throw new Error("STUB"); };
 
   isSelectQuarterInList = (day: Date, q: number, selectedDates: Date[]) =>
-    selectedDates.some((selectedDate) =>
-      this.isSelectedQuarter(day, q, selectedDate),
-    );
+    { throw new Error("STUB"); };
 
   isMonthSelected = () => {
-    const { day, selected, selectedDates, selectsMultiple } = this.props;
-    const monthIdx = getMonth(day);
-
-    if (selectsMultiple) {
-      return selectedDates?.some((date) =>
-        this.isSelectedMonth(day, monthIdx, date),
-      );
-    }
-
-    return !!selected && this.isSelectedMonth(day, monthIdx, selected);
+      throw new Error("STUB");
   };
 
   isQuarterSelected = () => {
-    const { day, selected, selectedDates, selectsMultiple } = this.props;
-    const quarterIdx = getQuarter(day);
-
-    if (selectsMultiple) {
-      return selectedDates?.some((selectedDate) =>
-        this.isSelectedQuarter(day, quarterIdx, selectedDate),
-      );
-    }
-
-    return !!selected && this.isSelectedQuarter(day, quarterIdx, selected);
+      throw new Error("STUB");
   };
 
   renderWeeks = () => {
-    // Return empty array if day is invalid
-    if (!isValid(this.props.day)) {
-      return [];
-    }
-
-    const weeks = [];
-    const isFixedHeight = this.props.fixedHeight;
-
-    let i = 0;
-    let breakAfterNextPush = false;
-    let currentWeekStart = getStartOfWeek(
-      getStartOfMonth(this.props.day),
-      this.props.locale,
-      this.props.calendarStartDay,
-    );
-
-    const isPreSelected = (preSelection: Date) =>
-      this.props.showWeekPicker
-        ? getStartOfWeek(
-            preSelection,
-            this.props.locale,
-            this.props.calendarStartDay,
-          )
-        : this.props.preSelection;
-
-    const isSelected = (selected: Date) =>
-      this.props.showWeekPicker
-        ? getStartOfWeek(
-            selected,
-            this.props.locale,
-            this.props.calendarStartDay,
-          )
-        : this.props.selected;
-
-    const selected = this.props.selected
-      ? isSelected(this.props.selected)
-      : undefined;
-
-    const preSelection = this.props.preSelection
-      ? isPreSelected(this.props.preSelection)
-      : undefined;
-
-    while (true) {
-      weeks.push(
-        <Week
-          {...this.props}
-          ariaLabelPrefix={this.props.weekAriaLabelPrefix}
-          key={i}
-          day={currentWeekStart}
-          month={getMonth(this.props.day)}
-          onDayClick={this.handleDayClick}
-          onDayMouseEnter={this.handleDayMouseEnter}
-          selected={selected}
-          preSelection={preSelection}
-          showWeekNumber={this.props.showWeekNumbers}
-        />,
-      );
-
-      if (breakAfterNextPush) break;
-
-      i++;
-      currentWeekStart = addWeeks(currentWeekStart, 1);
-
-      // If one of these conditions is true, we will either break on this week
-      // or break on the next week
-      const isFixedAndFinalWeek =
-        isFixedHeight && i >= FIXED_HEIGHT_STANDARD_WEEK_COUNT;
-      const isNonFixedAndOutOfMonth =
-        !isFixedHeight && !this.isWeekInMonth(currentWeekStart);
-
-      if (isFixedAndFinalWeek || isNonFixedAndOutOfMonth) {
-        if (this.props.peekNextMonth) {
-          breakAfterNextPush = true;
-        } else {
-          break;
-        }
-      }
-    }
-
-    return weeks;
+      throw new Error("STUB");
   };
 
   onMonthClick = (
@@ -537,29 +334,15 @@ export default class Month extends Component<MonthProps> {
       | React.KeyboardEvent<HTMLDivElement>,
     m: number,
   ) => {
-    const { isDisabled, labelDate } = this.isMonthDisabledForLabelDate(m);
-
-    if (isDisabled) {
-      return;
-    }
-
-    this.handleDayClick(getStartOfMonth(labelDate), event);
+      throw new Error("STUB");
   };
 
   onMonthMouseEnter = (m: number) => {
-    const { isDisabled, labelDate } = this.isMonthDisabledForLabelDate(m);
-
-    if (isDisabled) {
-      return;
-    }
-
-    this.handleDayMouseEnter(getStartOfMonth(labelDate));
+      throw new Error("STUB");
   };
 
   handleMonthNavigation = (newMonth: number, newDate: Date) => {
-    this.props.setPreSelection?.(newDate);
-
-    this.MONTH_REFS[newMonth]?.current?.focus();
+      throw new Error("STUB");
   };
 
   handleKeyboardNavigation = (
@@ -567,174 +350,18 @@ export default class Month extends Component<MonthProps> {
     eventKey: KeyType,
     month: number,
   ) => {
-    const {
-      selected,
-      preSelection,
-      setPreSelection,
-      minDate,
-      maxDate,
-      showFourColumnMonthYearPicker,
-      showTwoColumnMonthYearPicker,
-    } = this.props;
-    if (!preSelection) return;
-
-    const monthColumnsLayout = getMonthColumnsLayout(
-      showFourColumnMonthYearPicker,
-      showTwoColumnMonthYearPicker,
-    );
-
-    const verticalOffset = this.getVerticalOffset(monthColumnsLayout);
-
-    const monthsGrid = MONTH_COLUMNS[monthColumnsLayout]?.grid;
-
-    const calculateNewDateAndMonth = (
-      eventKey: KeyType,
-      date: Date,
-      month: number,
-    ): { newCalculatedDate: Date; newCalculatedMonth: number } => {
-      let newCalculatedDate = date;
-      let newCalculatedMonth = month;
-      switch (eventKey) {
-        case KeyType.ArrowRight:
-          newCalculatedDate = addMonths(
-            date,
-            MONTH_NAVIGATION_HORIZONTAL_OFFSET,
-          );
-          newCalculatedMonth =
-            month === 11 ? 0 : month + MONTH_NAVIGATION_HORIZONTAL_OFFSET;
-          break;
-        case KeyType.ArrowLeft:
-          newCalculatedDate = subMonths(
-            date,
-            MONTH_NAVIGATION_HORIZONTAL_OFFSET,
-          );
-          newCalculatedMonth =
-            month === 0 ? 11 : month - MONTH_NAVIGATION_HORIZONTAL_OFFSET;
-          break;
-        case KeyType.ArrowUp:
-          newCalculatedDate = subMonths(date, verticalOffset);
-          newCalculatedMonth = monthsGrid?.[0]?.includes(month)
-            ? month + 12 - verticalOffset
-            : month - verticalOffset;
-          break;
-        case KeyType.ArrowDown:
-          newCalculatedDate = addMonths(date, verticalOffset);
-          newCalculatedMonth = monthsGrid?.[monthsGrid.length - 1]?.includes(
-            month,
-          )
-            ? month - 12 + verticalOffset
-            : month + verticalOffset;
-          break;
-      }
-
-      return { newCalculatedDate, newCalculatedMonth };
-    };
-
-    const getNewDateAndMonth = (
-      eventKey: KeyType,
-      selectedDate: Date,
-      month: number,
-    ): { newCalculatedDate: Date; newCalculatedMonth: number } => {
-      const MAX_ITERATIONS = 40;
-      let eventKeyCopy = eventKey;
-      let validDateFound = false;
-      let iterations = 0;
-      let { newCalculatedDate, newCalculatedMonth } = calculateNewDateAndMonth(
-        eventKeyCopy,
-        selectedDate,
-        month,
-      );
-
-      while (!validDateFound) {
-        if (iterations >= MAX_ITERATIONS) {
-          newCalculatedDate = selectedDate;
-          newCalculatedMonth = month;
-          break;
-        }
-        // if minDate exists and the new month is before the minimum month, it will try to find the next available month after
-        if (minDate && newCalculatedDate < minDate) {
-          eventKeyCopy = KeyType.ArrowRight;
-          const obj = calculateNewDateAndMonth(
-            eventKeyCopy,
-            newCalculatedDate,
-            newCalculatedMonth,
-          );
-          newCalculatedDate = obj.newCalculatedDate;
-          newCalculatedMonth = obj.newCalculatedMonth;
-        }
-
-        // if maxDate exists and the new month is after the maximum month, it will try to find the next available month before
-        if (maxDate && newCalculatedDate > maxDate) {
-          eventKeyCopy = KeyType.ArrowLeft;
-          const obj = calculateNewDateAndMonth(
-            eventKeyCopy,
-            newCalculatedDate,
-            newCalculatedMonth,
-          );
-          newCalculatedDate = obj.newCalculatedDate;
-          newCalculatedMonth = obj.newCalculatedMonth;
-        }
-
-        if (isMonthYearDisabled(newCalculatedDate, this.props)) {
-          const obj = calculateNewDateAndMonth(
-            eventKeyCopy,
-            newCalculatedDate,
-            newCalculatedMonth,
-          );
-          newCalculatedDate = obj.newCalculatedDate;
-          newCalculatedMonth = obj.newCalculatedMonth;
-        } else {
-          validDateFound = true;
-        }
-        iterations++;
-      }
-
-      return { newCalculatedDate, newCalculatedMonth };
-    };
-
-    if (eventKey === KeyType.Enter) {
-      if (!this.isMonthDisabled(month)) {
-        this.onMonthClick(event, month);
-        setPreSelection?.(selected);
-      }
-      return;
-    }
-
-    const { newCalculatedDate, newCalculatedMonth } = getNewDateAndMonth(
-      eventKey,
-      preSelection,
-      month,
-    );
-
-    switch (eventKey) {
-      case KeyType.ArrowRight:
-      case KeyType.ArrowLeft:
-      case KeyType.ArrowUp:
-      case KeyType.ArrowDown:
-        this.handleMonthNavigation(newCalculatedMonth, newCalculatedDate);
-        break;
-    }
+      throw new Error("STUB");
   };
 
   getVerticalOffset = (monthColumnsLayout: string) => {
-    return MONTH_COLUMNS[monthColumnsLayout]?.verticalNavigationOffset ?? 0;
+      throw new Error("STUB");
   };
 
   onMonthKeyDown = (
     event: React.KeyboardEvent<HTMLDivElement>,
     month: number,
   ) => {
-    const { disabledKeyboardNavigation, handleOnMonthKeyDown } = this.props;
-    const eventKey = event.key as KeyType;
-    if (eventKey !== KeyType.Tab) {
-      // preventDefault on tab event blocks focus change
-      event.preventDefault();
-    }
-    if (!disabledKeyboardNavigation) {
-      this.handleKeyboardNavigation(event, eventKey, month);
-    }
-
-    handleOnMonthKeyDown && handleOnMonthKeyDown(event);
+      throw new Error("STUB");
   };
 
   onQuarterClick = (
@@ -743,64 +370,22 @@ export default class Month extends Component<MonthProps> {
       | React.KeyboardEvent<HTMLDivElement>,
     q: number,
   ) => {
-    const labelDate = setQuarter(this.props.day, q);
-
-    if (isQuarterDisabled(labelDate, this.props)) {
-      return;
-    }
-
-    this.handleDayClick(getStartOfQuarter(labelDate), event);
+      throw new Error("STUB");
   };
 
   onQuarterMouseEnter = (q: number) => {
-    const labelDate = setQuarter(this.props.day, q);
-
-    if (isQuarterDisabled(labelDate, this.props)) {
-      return;
-    }
-
-    this.handleDayMouseEnter(getStartOfQuarter(labelDate));
+      throw new Error("STUB");
   };
 
   handleQuarterNavigation = (newQuarter: number, newDate: Date) => {
-    if (this.isDisabled(newDate) || this.isExcluded(newDate)) {
-      return;
-    }
-    this.props.setPreSelection?.(newDate);
-    this.QUARTER_REFS[newQuarter - 1]?.current?.focus();
+      throw new Error("STUB");
   };
 
   onQuarterKeyDown = (
     event: React.KeyboardEvent<HTMLDivElement>,
     quarter: number,
   ) => {
-    const eventKey = event.key;
-    if (!this.props.disabledKeyboardNavigation) {
-      switch (eventKey) {
-        case KeyType.Enter:
-          this.onQuarterClick(event, quarter);
-          this.props.setPreSelection?.(this.props.selected);
-          break;
-        case KeyType.ArrowRight:
-          if (!this.props.preSelection) {
-            break;
-          }
-          this.handleQuarterNavigation(
-            quarter === 4 ? 1 : quarter + 1,
-            addQuarters(this.props.preSelection, 1),
-          );
-          break;
-        case KeyType.ArrowLeft:
-          if (!this.props.preSelection) {
-            break;
-          }
-          this.handleQuarterNavigation(
-            quarter === 1 ? 4 : quarter - 1,
-            subQuarters(this.props.preSelection, 1),
-          );
-          break;
-      }
-    }
+      throw new Error("STUB");
   };
 
   isMonthDisabledForLabelDate = (
@@ -809,328 +394,55 @@ export default class Month extends Component<MonthProps> {
     isDisabled: boolean;
     labelDate: Date;
   } => {
-    const { day, disabled, minDate, maxDate, excludeDates, includeDates } =
-      this.props;
-    const labelDate = setMonth(day, month);
-
-    if (disabled) {
-      return {
-        isDisabled: true,
-        labelDate: setMonth(day, month),
-      };
-    }
-
-    return {
-      isDisabled:
-        ((minDate || maxDate || excludeDates || includeDates) &&
-          isMonthDisabled(labelDate, this.props)) ??
-        false,
-      labelDate,
-    };
+      throw new Error("STUB");
   };
 
   isMonthDisabled = (month: number) => {
-    const { isDisabled } = this.isMonthDisabledForLabelDate(month);
-    return isDisabled;
+      throw new Error("STUB");
   };
 
   getSelection() {
-    const { selected, selectedDates, selectsMultiple } = this.props;
-
-    if (selectsMultiple) {
-      return selectedDates;
-    }
-
-    if (selected) {
-      return [selected];
-    }
-
-    return undefined;
+      throw new Error("STUB");
   }
 
   getMonthClassNames = (m: number) => {
-    const { day, startDate, endDate, preSelection, monthClassName } =
-      this.props;
-    const _monthClassName = monthClassName
-      ? monthClassName(setMonth(day, m))
-      : undefined;
-
-    const selection = this.getSelection();
-
-    return clsx(
-      "react-datepicker__month-text",
-      `react-datepicker__month-${m}`,
-      _monthClassName,
-      {
-        "react-datepicker__month-text--disabled": this.isMonthDisabled(m),
-        "react-datepicker__month-text--selected": selection
-          ? this.isSelectMonthInList(day, m, selection)
-          : undefined,
-        "react-datepicker__month-text--keyboard-selected":
-          !this.props.disabledKeyboardNavigation &&
-          preSelection &&
-          this.isSelectedMonth(day, m, preSelection) &&
-          !this.isMonthSelected() &&
-          !this.isMonthDisabled(m),
-        "react-datepicker__month-text--in-selecting-range":
-          this.isInSelectingRangeMonth(m),
-        "react-datepicker__month-text--in-range":
-          startDate && endDate
-            ? isMonthInRange(startDate, endDate, m, day)
-            : undefined,
-        "react-datepicker__month-text--range-start": this.isRangeStartMonth(m),
-        "react-datepicker__month-text--range-end": this.isRangeEndMonth(m),
-        "react-datepicker__month-text--selecting-range-start":
-          this.isSelectingMonthRangeStart(m),
-        "react-datepicker__month-text--selecting-range-end":
-          this.isSelectingMonthRangeEnd(m),
-        "react-datepicker__month-text--today": this.isCurrentMonth(day, m),
-      },
-    );
+      throw new Error("STUB");
   };
 
   getTabIndex = (m: number) => {
-    if (this.props.preSelection == null) {
-      return "-1";
-    }
-    const preSelectedMonth = getMonth(this.props.preSelection);
-    const { isDisabled: isPreSelectedMonthDisabled } =
-      this.isMonthDisabledForLabelDate(preSelectedMonth);
-
-    const tabIndex =
-      m === preSelectedMonth &&
-      !(isPreSelectedMonthDisabled || this.props.disabledKeyboardNavigation)
-        ? "0"
-        : "-1";
-
-    return tabIndex;
+      throw new Error("STUB");
   };
 
   getQuarterTabIndex = (q: number) => {
-    if (this.props.preSelection == null) {
-      return "-1";
-    }
-    const preSelectedQuarter = getQuarter(this.props.preSelection);
-    const isCurrentQuarterDisabled = isQuarterDisabled(
-      this.props.day,
-      this.props,
-    );
-
-    const tabIndex =
-      q === preSelectedQuarter &&
-      !(isCurrentQuarterDisabled || this.props.disabledKeyboardNavigation)
-        ? "0"
-        : "-1";
-
-    return tabIndex;
+      throw new Error("STUB");
   };
 
   getAriaLabel = (month: number) => {
-    const {
-      chooseDayAriaLabelPrefix = "Choose",
-      disabledDayAriaLabelPrefix = "Not available",
-      day,
-      locale,
-    } = this.props;
-    const labelDate = setMonth(day, month);
-    const prefix =
-      this.isDisabled(labelDate) || this.isExcluded(labelDate)
-        ? disabledDayAriaLabelPrefix
-        : chooseDayAriaLabelPrefix;
-
-    return `${prefix} ${formatDate(labelDate, "MMMM yyyy", locale)}`;
+      throw new Error("STUB");
   };
 
   getQuarterClassNames = (q: number) => {
-    const {
-      day,
-      startDate,
-      endDate,
-      minDate,
-      maxDate,
-      excludeDates,
-      includeDates,
-      filterDate,
-      preSelection,
-      disabledKeyboardNavigation,
-      disabled,
-    } = this.props;
-
-    const isDisabled =
-      (minDate ||
-        maxDate ||
-        excludeDates ||
-        includeDates ||
-        filterDate ||
-        disabled) &&
-      isQuarterDisabled(setQuarter(day, q), this.props);
-
-    const selection = this.getSelection();
-
-    return clsx(
-      "react-datepicker__quarter-text",
-      `react-datepicker__quarter-${q}`,
-      {
-        "react-datepicker__quarter-text--disabled": isDisabled,
-        "react-datepicker__quarter-text--selected": selection
-          ? this.isSelectQuarterInList(day, q, selection)
-          : undefined,
-        "react-datepicker__quarter-text--keyboard-selected":
-          !disabledKeyboardNavigation &&
-          preSelection &&
-          this.isSelectedQuarter(day, q, preSelection) &&
-          !this.isQuarterSelected() &&
-          !isDisabled,
-        "react-datepicker__quarter-text--in-selecting-range":
-          this.isInSelectingRangeQuarter(q),
-        "react-datepicker__quarter-text--in-range":
-          startDate && endDate
-            ? isQuarterInRange(startDate, endDate, q, day)
-            : undefined,
-        "react-datepicker__quarter-text--range-start":
-          this.isRangeStartQuarter(q),
-        "react-datepicker__quarter-text--range-end": this.isRangeEndQuarter(q),
-        "react-datepicker__quarter-text--today": this.isCurrentQuarter(day, q),
-      },
-    );
+      throw new Error("STUB");
   };
 
   getMonthContent = (m: number) => {
-    const { showFullMonthYearPicker, renderMonthContent, locale, day } =
-      this.props;
-    const shortMonthText = getMonthShortInLocale(m, locale);
-    const fullMonthText = getMonthInLocale(m, locale);
-    if (renderMonthContent) {
-      return renderMonthContent(m, shortMonthText, fullMonthText, day);
-    }
-    return showFullMonthYearPicker ? fullMonthText : shortMonthText;
+      throw new Error("STUB");
   };
 
   getQuarterContent = (q: number) => {
-    const { renderQuarterContent, locale } = this.props;
-    const shortQuarter = getQuarterShortInLocale(q, locale);
-    return renderQuarterContent?.(q, shortQuarter) ?? shortQuarter;
+      throw new Error("STUB");
   };
 
   renderMonths = () => {
-    const {
-      showTwoColumnMonthYearPicker,
-      showFourColumnMonthYearPicker,
-      day,
-      selected,
-    } = this.props;
-
-    const monthColumns =
-      MONTH_COLUMNS[
-        getMonthColumnsLayout(
-          showFourColumnMonthYearPicker,
-          showTwoColumnMonthYearPicker,
-        )
-      ]?.grid;
-    return monthColumns?.map((month, i) => (
-      <div className="react-datepicker__month-wrapper" key={i}>
-        {month.map((m, j) => (
-          <div
-            ref={this.MONTH_REFS[m]}
-            key={j}
-            onClick={(event) => {
-              this.onMonthClick(event, m);
-            }}
-            onKeyDown={(event) => {
-              if (isSpaceKeyDown(event)) {
-                event.preventDefault();
-                event.key = KeyType.Enter;
-              }
-
-              this.onMonthKeyDown(event, m);
-            }}
-            onMouseEnter={
-              !this.props.usePointerEvent
-                ? () => this.onMonthMouseEnter(m)
-                : undefined
-            }
-            onPointerEnter={
-              this.props.usePointerEvent
-                ? () => this.onMonthMouseEnter(m)
-                : undefined
-            }
-            tabIndex={Number(this.getTabIndex(m))}
-            className={this.getMonthClassNames(m)}
-            aria-disabled={this.isMonthDisabled(m)}
-            role="option"
-            aria-label={this.getAriaLabel(m)}
-            aria-current={this.isCurrentMonth(day, m) ? "date" : undefined}
-            aria-selected={
-              selected ? this.isSelectedMonth(day, m, selected) : undefined
-            }
-          >
-            {this.getMonthContent(m)}
-          </div>
-        ))}
-      </div>
-    ));
+      throw new Error("STUB");
   };
 
   renderQuarters = () => {
-    const { day, selected } = this.props;
-    const quarters = [1, 2, 3, 4];
-    return (
-      <div className="react-datepicker__quarter-wrapper">
-        {quarters.map((q, j) => (
-          <div
-            key={j}
-            ref={this.QUARTER_REFS[j]}
-            role="option"
-            onClick={(event) => {
-              this.onQuarterClick(event, q);
-            }}
-            onKeyDown={(event) => {
-              this.onQuarterKeyDown(event, q);
-            }}
-            onMouseEnter={
-              !this.props.usePointerEvent
-                ? () => this.onQuarterMouseEnter(q)
-                : undefined
-            }
-            onPointerEnter={
-              this.props.usePointerEvent
-                ? () => this.onQuarterMouseEnter(q)
-                : undefined
-            }
-            className={this.getQuarterClassNames(q)}
-            aria-selected={
-              selected ? this.isSelectedQuarter(day, q, selected) : undefined
-            }
-            tabIndex={Number(this.getQuarterTabIndex(q))}
-            aria-current={this.isCurrentQuarter(day, q) ? "date" : undefined}
-          >
-            {this.getQuarterContent(q)}
-          </div>
-        ))}
-      </div>
-    );
+      throw new Error("STUB");
   };
 
   getClassNames = () => {
-    const {
-      selectingDate,
-      selectsStart,
-      selectsEnd,
-      showMonthYearPicker,
-      showQuarterYearPicker,
-      showWeekPicker,
-    } = this.props;
-
-    return clsx(
-      "react-datepicker__month",
-      {
-        "react-datepicker__month--selecting-range":
-          selectingDate && (selectsStart || selectsEnd),
-      },
-      { "react-datepicker__monthPicker": showMonthYearPicker },
-      { "react-datepicker__quarterPicker": showQuarterYearPicker },
-      { "react-datepicker__weekPicker": showWeekPicker },
-    );
+      throw new Error("STUB");
   };
 
   render() {

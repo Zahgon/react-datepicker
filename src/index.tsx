@@ -79,13 +79,7 @@ function hasPreSelectionChanged(
   date1?: Date | null,
   date2?: Date | null,
 ): boolean {
-  if (date1 && date2) {
-    return (
-      getMonth(date1) !== getMonth(date2) || getYear(date1) !== getYear(date2)
-    );
-  }
-
-  return date1 !== date2;
+    throw new Error("STUB");
 }
 
 /**
@@ -318,54 +312,7 @@ interface DatePickerState {
 
 export class DatePicker extends Component<DatePickerProps, DatePickerState> {
   static get defaultProps() {
-    return {
-      allowSameDay: false,
-      dateFormat: "MM/dd/yyyy",
-      dateFormatCalendar: "LLLL yyyy",
-      disabled: false,
-      disabledKeyboardNavigation: false,
-      dropdownMode: "scroll" as const,
-      preventOpenOnFocus: false,
-      monthsShown: 1,
-      outsideClickIgnoreClass: OUTSIDE_CLICK_IGNORE_CLASS,
-      readOnly: false,
-      rangeSeparator: DATE_RANGE_SEPARATOR,
-      withPortal: false,
-      selectsDisabledDaysInRange: false,
-      shouldCloseOnSelect: true,
-      showTimeSelect: false,
-      showTimeInput: false,
-      showPreviousMonths: false,
-      showMonthYearPicker: false,
-      showFullMonthYearPicker: false,
-      showTwoColumnMonthYearPicker: false,
-      showFourColumnMonthYearPicker: false,
-      showYearPicker: false,
-      showQuarterYearPicker: false,
-      showWeekPicker: false,
-      strictParsing: false,
-      swapRange: false,
-      timeIntervals: 30,
-      timeCaption: "Time",
-      previousMonthAriaLabel: "Previous Month",
-      previousMonthButtonLabel: "Previous Month",
-      nextMonthAriaLabel: "Next Month",
-      nextMonthButtonLabel: "Next Month",
-      previousYearAriaLabel: "Previous Year",
-      previousYearButtonLabel: "Previous Year",
-      nextYearAriaLabel: "Next Year",
-      nextYearButtonLabel: "Next Year",
-      timeInputLabel: "Time",
-      enableTabLoop: true,
-      yearItemNumber: DEFAULT_YEAR_ITEM_NUMBER,
-      focusSelectedMonth: false,
-      showPopperArrow: true,
-      excludeScrollbar: true,
-      customTimeInput: null,
-      calendarStartDay: undefined,
-      toggleCalendarOnIconClick: false,
-      usePointerEvent: false,
-    };
+      throw new Error("STUB");
   }
 
   constructor(props: DatePickerProps) {
@@ -375,78 +322,18 @@ export class DatePicker extends Component<DatePickerProps, DatePickerState> {
   }
 
   componentDidMount(): void {
-    window.addEventListener("scroll", this.onScroll, true);
-    document.addEventListener(
-      "visibilitychange",
-      this.setHiddenStateOnVisibilityHidden,
-    );
+      throw new Error("STUB");
   }
 
   componentDidUpdate(
     prevProps: DatePickerProps,
     prevState: DatePickerState,
   ): void {
-    // Update preSelection when selected/startDate prop changes to a different month/year.
-    // This ensures the calendar view updates when dates are programmatically set
-    // (e.g., via "Today" or "This Week" buttons). (Fix for #3367)
-    if (
-      this.props.selectsRange &&
-      hasPreSelectionChanged(prevProps.startDate, this.props.startDate)
-    ) {
-      this.setPreSelection(this.props.startDate);
-    } else if (
-      hasPreSelectionChanged(prevProps.selected, this.props.selected)
-    ) {
-      this.setPreSelection(this.props.selected);
-    }
-    if (
-      this.state.monthSelectedIn !== undefined &&
-      prevProps.monthsShown !== this.props.monthsShown
-    ) {
-      this.setState({ monthSelectedIn: 0 });
-    }
-    // Reset monthSelectedIn when calendar opens for range selection
-    // This ensures startDate is displayed as the first month when reopening
-    // (Fix for #5939), but we don't reset during active selection to avoid
-    // the view jumping when clicking dates in the second calendar (Fix for #5275)
-    if (
-      this.props.selectsRange &&
-      prevState.open === false &&
-      this.state.open === true &&
-      this.state.monthSelectedIn !== 0
-    ) {
-      this.setState({ monthSelectedIn: 0 });
-    }
-    if (prevProps.highlightDates !== this.props.highlightDates) {
-      this.setState({
-        highlightDates: getHighLightDaysMap(this.props.highlightDates),
-      });
-    }
-    if (
-      !prevState.focused &&
-      !isEqual(prevProps.selected, this.props.selected)
-    ) {
-      this.setState({ inputValue: null });
-    }
-
-    if (prevState.open !== this.state.open) {
-      if (prevState.open === false && this.state.open === true) {
-        this.props.onCalendarOpen?.();
-      }
-
-      if (prevState.open === true && this.state.open === false) {
-        this.props.onCalendarClose?.();
-      }
-    }
+      throw new Error("STUB");
   }
 
   componentWillUnmount(): void {
-    this.clearPreventFocusTimeout();
-    window.removeEventListener("scroll", this.onScroll, true);
-    document.removeEventListener(
-      "visibilitychange",
-      this.setHiddenStateOnVisibilityHidden,
-    );
+      throw new Error("STUB");
   }
 
   preventFocusTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -458,406 +345,96 @@ export class DatePicker extends Component<DatePickerProps, DatePickerState> {
   input: HTMLElement | null = null;
 
   getPreSelection = (): Date => {
-    const { timeZone } = this.props;
-    const baseDate = this.props.openToDate
-      ? this.props.openToDate
-      : this.props.selectsEnd && this.props.startDate
-        ? this.props.startDate
-        : this.props.selectsStart && this.props.endDate
-          ? this.props.endDate
-          : newDate();
-
-    // Convert to the specified timezone for display
-    return timeZone ? toZonedTime(baseDate, timeZone) : baseDate;
+      throw new Error("STUB");
   };
 
   // Convert the date from string format to standard Date format
   // Uses parseDate with ISO format to parse as local time, preventing
   // dates from shifting in timezones west of UTC. See issue #6105.
   modifyHolidays = () =>
-    this.props.holidays?.reduce<HolidayItem[]>((accumulator, holiday) => {
-      const date = parseDate(holiday.date, "yyyy-MM-dd", undefined, false);
-      if (!date) {
-        return accumulator;
-      }
-
-      return [...accumulator, { ...holiday, date }];
-    }, []);
+    { throw new Error("STUB"); };
 
   calcInitialState = (): DatePickerState => {
-    const { timeZone } = this.props;
-    const defaultPreSelection = this.getPreSelection();
-    const minDate = getEffectiveMinDate(this.props);
-    const maxDate = getEffectiveMaxDate(this.props);
-    const boundedPreSelection =
-      minDate && isBefore(defaultPreSelection, getStartOfDay(minDate))
-        ? minDate
-        : maxDate && isAfter(defaultPreSelection, getEndOfDay(maxDate))
-          ? maxDate
-          : defaultPreSelection;
-
-    // Convert selected/startDate to zoned time for display if timezone is specified
-    let initialPreSelection = this.props.selectsRange
-      ? this.props.startDate
-      : this.props.selected;
-
-    if (initialPreSelection && timeZone) {
-      initialPreSelection = toZonedTime(initialPreSelection, timeZone);
-    }
-
-    return {
-      open: this.props.startOpen || false,
-      preventFocus: false,
-      inputValue: null,
-      preSelection: initialPreSelection ?? boundedPreSelection,
-      // transforming highlighted days (perhaps nested array)
-      // to flat Map for faster access in day.jsx
-      highlightDates: getHighLightDaysMap(this.props.highlightDates),
-      focused: false,
-      // used to focus day in inline version after month has changed, but not on
-      // initial render
-      shouldFocusDayInline: false,
-      isRenderAriaLiveMessage: false,
-      wasHidden: false,
-    };
+      throw new Error("STUB");
   };
 
   getInputValue = (): string => {
-    const {
-      locale,
-      startDate,
-      endDate,
-      rangeSeparator,
-      selected,
-      selectedDates,
-      selectsMultiple,
-      selectsRange,
-      formatMultipleDates,
-      value,
-      timeZone,
-    } = this.props;
-    const dateFormat =
-      this.props.dateFormat ?? DatePicker.defaultProps.dateFormat;
-
-    const { inputValue } = this.state;
-
-    if (typeof value === "string") {
-      return value;
-    } else if (typeof inputValue === "string") {
-      return inputValue;
-    } else if (selectsRange) {
-      return safeDateRangeFormat(startDate, endDate, {
-        dateFormat,
-        locale,
-        rangeSeparator,
-        timeZone,
-      });
-    } else if (selectsMultiple) {
-      if (formatMultipleDates) {
-        const formatDateFn = (date: Date) =>
-          safeDateFormat(date, { dateFormat, locale, timeZone });
-        return formatMultipleDates(selectedDates ?? [], formatDateFn);
-      }
-      return safeMultipleDatesFormat(selectedDates ?? [], {
-        dateFormat,
-        locale,
-        timeZone,
-      });
-    }
-    return safeDateFormat(selected, {
-      dateFormat,
-      locale,
-      timeZone,
-    });
+      throw new Error("STUB");
   };
 
   resetHiddenStatus = (): void => {
-    this.setState({
-      ...this.state,
-      wasHidden: false,
-    });
+      throw new Error("STUB");
   };
 
   setHiddenStatus = (): void => {
-    this.setState({
-      ...this.state,
-      wasHidden: true,
-    });
+      throw new Error("STUB");
   };
 
   setHiddenStateOnVisibilityHidden = (): void => {
-    if (document.visibilityState !== "hidden") {
-      return;
-    }
-
-    this.setHiddenStatus();
+      throw new Error("STUB");
   };
 
   clearPreventFocusTimeout = () => {
-    if (this.preventFocusTimeout) {
-      clearTimeout(this.preventFocusTimeout);
-    }
+      throw new Error("STUB");
   };
 
   setFocus = () => {
-    this.input?.focus?.({ preventScroll: true });
+      throw new Error("STUB");
   };
 
   setBlur = () => {
-    this.input?.blur?.();
-    this.cancelFocusInput();
+      throw new Error("STUB");
   };
 
   deferBlur = () => {
-    requestAnimationFrame(() => {
-      this.setBlur();
-    });
+      throw new Error("STUB");
   };
 
   setOpen = (open: boolean, skipSetBlur: boolean = false): void => {
-    this.setState(
-      {
-        open: open,
-        preSelection:
-          open && this.state.open
-            ? this.state.preSelection
-            : this.calcInitialState().preSelection,
-        lastPreSelectChange: PRESELECT_CHANGE_VIA_NAVIGATE,
-      },
-      () => {
-        if (!open) {
-          this.setState(
-            (prev: DatePickerState) => ({
-              focused: skipSetBlur ? prev.focused : false,
-            }),
-            () => {
-              !skipSetBlur && this.deferBlur();
-
-              this.setState({ inputValue: null });
-            },
-          );
-        }
-      },
-    );
+      throw new Error("STUB");
   };
-  inputOk = (): boolean => isDate(this.state.preSelection);
+  inputOk = (): boolean => { throw new Error("STUB"); };
 
   isCalendarOpen = () =>
-    this.props.open === undefined
-      ? this.state.open && !this.props.disabled && !this.props.readOnly
-      : this.props.open;
+    { throw new Error("STUB"); };
 
   handleFocus = (event: React.FocusEvent<HTMLElement>): void => {
-    const isAutoReFocus = this.state.wasHidden;
-    const isOpenAllowed = isAutoReFocus ? this.state.open : true;
-
-    if (isAutoReFocus) {
-      this.resetHiddenStatus();
-    }
-
-    if (!this.state.preventFocus) {
-      this.props.onFocus?.(event);
-      if (
-        isOpenAllowed &&
-        !this.props.preventOpenOnFocus &&
-        !this.props.readOnly
-      ) {
-        this.setOpen(true);
-      }
-    }
-    this.setState({ focused: true });
+      throw new Error("STUB");
   };
 
   sendFocusBackToInput = (): void => {
-    // Clear previous timeout if it exists
-    if (this.preventFocusTimeout) {
-      this.clearPreventFocusTimeout();
-    }
-
-    // close the popper and refocus the input
-    // stop the input from auto opening onFocus
-    // setFocus to the input
-    this.setState({ preventFocus: true }, (): void => {
-      this.preventFocusTimeout = setTimeout((): void => {
-        this.setFocus();
-        this.setState({ preventFocus: false });
-      });
-    });
+      throw new Error("STUB");
   };
 
   cancelFocusInput = () => {
-    clearTimeout(this.inputFocusTimeout);
-    this.inputFocusTimeout = undefined;
+      throw new Error("STUB");
   };
 
   deferFocusInput = () => {
-    this.cancelFocusInput();
-    this.inputFocusTimeout = setTimeout(() => this.setFocus(), 1);
+      throw new Error("STUB");
   };
 
   handleDropdownFocus = () => {
-    this.cancelFocusInput();
+      throw new Error("STUB");
   };
 
   resetInputValue = () => {
-    this.setState({
-      ...this.state,
-      inputValue: null,
-    });
+      throw new Error("STUB");
   };
 
   handleBlur = (event: React.FocusEvent<HTMLElement>) => {
-    if (!this.state.open || this.props.withPortal || this.props.showTimeInput) {
-      this.props.onBlur?.(event);
-    }
-
-    // If user cleared the input via a mask library (inputValue has no date-like
-    // characters), clear the selection on blur (fixes issue #5814 with mask inputs)
-    const { inputValue } = this.state;
-    if (typeof inputValue === "string" && inputValue.length > 0) {
-      // Check if input looks like a cleared mask (no alphanumeric characters)
-      // This distinguishes between:
-      // - "__/__/____" (cleared mask) → should clear selection
-      // - "2025-02-45" (invalid date) → should keep previous selection
-      const hasDateCharacters = /[a-zA-Z0-9]/.test(inputValue);
-      if (!hasDateCharacters && this.props.selected) {
-        this.setSelected(null, undefined, true);
-      }
-    }
-
-    this.resetInputValue();
-
-    if (this.state.open && this.props.open === false) {
-      this.setOpen(false);
-    }
-
-    this.setState({ focused: false });
+      throw new Error("STUB");
   };
 
   handleCalendarClickOutside = (event: MouseEvent) => {
-    // Call user's onClickOutside first, allowing them to call preventDefault()
-    this.props.onClickOutside?.(event);
-
-    // Only close if not prevented and not inline
-    if (!this.props.inline && !event.defaultPrevented) {
-      this.setOpen(false);
-    }
-    if (this.props.withPortal) {
-      event.preventDefault();
-    }
+      throw new Error("STUB");
   };
 
   // handleChange is called when user types in the textbox
   handleChange = (
     ...allArgs: Parameters<Required<DatePickerProps>["onChangeRaw"]>
   ) => {
-    const event = allArgs[0];
-    if (this.props.onChangeRaw) {
-      this.props.onChangeRaw.apply(this, allArgs);
-      if (
-        !event ||
-        typeof event.isDefaultPrevented !== "function" ||
-        event.isDefaultPrevented()
-      ) {
-        return;
-      }
-    }
-
-    this.setState({
-      inputValue:
-        event?.target instanceof HTMLInputElement ? event.target.value : null,
-      lastPreSelectChange: PRESELECT_CHANGE_VIA_INPUT,
-    });
-
-    const { selectsRange, startDate, endDate } = this.props;
-
-    const dateFormat =
-      this.props.dateFormat ?? DatePicker.defaultProps.dateFormat;
-    const strictParsing =
-      this.props.strictParsing ?? DatePicker.defaultProps.strictParsing;
-
-    const value =
-      event?.target instanceof HTMLInputElement ? event.target.value : "";
-
-    if (selectsRange) {
-      const rangeSeparator = this.props.rangeSeparator as string;
-      const trimmedRangeSeparator = rangeSeparator.trim();
-
-      const [valueStart, valueEnd] = value
-        .split(
-          dateFormat.includes(trimmedRangeSeparator)
-            ? rangeSeparator
-            : trimmedRangeSeparator,
-          2,
-        )
-        .map((val) => val.trim());
-      const startDateNew = parseDate(
-        valueStart ?? "",
-        dateFormat,
-        this.props.locale,
-        strictParsing,
-      );
-      const endDateNew = startDateNew
-        ? parseDate(
-            valueEnd ?? "",
-            dateFormat,
-            this.props.locale,
-            strictParsing,
-          )
-        : null;
-      const startChanged =
-        safeToDate(startDate)?.getTime() !== startDateNew?.getTime();
-      const endChanged =
-        safeToDate(endDate)?.getTime() !== endDateNew?.getTime();
-
-      if (!startChanged && !endChanged) {
-        return;
-      }
-
-      if (startDateNew && isDayDisabled(startDateNew, this.props)) {
-        return;
-      }
-      if (endDateNew && isDayDisabled(endDateNew, this.props)) {
-        return;
-      }
-
-      // Update preSelection to keep calendar viewport consistent when reopening
-      // Use startDate for preSelection to match calcInitialState behavior
-      if (startDateNew) {
-        this.setState({ preSelection: startDateNew });
-      }
-
-      this.props.onChange?.([startDateNew, endDateNew], event);
-    } else {
-      // not selectsRange
-      const date = parseDate(
-        value,
-        dateFormat,
-        this.props.locale,
-        strictParsing,
-        this.props.selected ?? undefined,
-      );
-
-      // Update selection if either (1) date was successfully parsed, or (2) input field is empty
-      if (date || !value) {
-        this.setSelected(date, event, true);
-      } else if (!this.props.inline) {
-        // If full date parsing failed but we have partial input,
-        // try to extract date info for calendar navigation
-        const navDate = parseDateForNavigation(
-          value,
-          this.state.preSelection ?? undefined,
-        );
-        // Only update preSelection if navDate is valid and within min/max bounds
-        if (
-          navDate &&
-          (!this.props.minDate || !isBefore(navDate, this.props.minDate)) &&
-          (!this.props.maxDate || !isAfter(navDate, this.props.maxDate))
-        ) {
-          this.setState({ preSelection: navDate });
-        }
-      }
-    }
+      throw new Error("STUB");
   };
 
   handleSelect = (
@@ -865,40 +442,7 @@ export class DatePicker extends Component<DatePickerProps, DatePickerState> {
     event?: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     monthSelectedIn?: number,
   ) => {
-    if (this.props.readOnly) return;
-
-    const { selectsRange, startDate, endDate, locale, swapRange } = this.props;
-    const dateFormat =
-      this.props.dateFormat ?? DatePicker.defaultProps.dateFormat;
-    const isDateSelectionComplete =
-      !selectsRange ||
-      (startDate && !endDate && (swapRange || !isDateBefore(date, startDate)));
-
-    if (
-      this.props.shouldCloseOnSelect &&
-      !this.props.showTimeSelect &&
-      isDateSelectionComplete
-    ) {
-      // Preventing onFocus event to fix issue
-      // https://github.com/Hacker0x01/react-datepicker/issues/628
-      this.sendFocusBackToInput();
-    }
-    if (this.props.onChangeRaw) {
-      const formattedDate = safeDateFormat(date, {
-        dateFormat,
-        locale,
-      });
-      this.props.onChangeRaw(event, { date, formattedDate });
-    }
-    this.setSelected(date, event, false, monthSelectedIn);
-    if (this.props.showDateSelect) {
-      this.setState({ isRenderAriaLiveMessage: true });
-    }
-    if (!this.props.shouldCloseOnSelect || this.props.showTimeSelect) {
-      this.setPreSelection(date);
-    } else if (isDateSelectionComplete) {
-      this.setOpen(false);
-    }
+      throw new Error("STUB");
   };
 
   // setSelected is called either from handleChange (user typed date into textbox and it was parsed) or handleSelect (user selected date from calendar using mouse or keyboard)
@@ -908,1051 +452,87 @@ export class DatePicker extends Component<DatePickerProps, DatePickerState> {
     keepInput?: boolean,
     monthSelectedIn?: number,
   ) => {
-    const { timeZone } = this.props;
-
-    // If timezone is specified, convert the selected date from zoned time to UTC
-    // This ensures the onChange callback receives a proper UTC Date object
-    let changedDate = date;
-    if (changedDate && timeZone) {
-      changedDate = fromZonedTime(changedDate, timeZone);
-    }
-
-    // Early return if selected year/month/day is disabled
-    if (this.props.showYearPicker) {
-      if (
-        changedDate !== null &&
-        isYearDisabled(getYear(changedDate), this.props)
-      ) {
-        return;
-      }
-    } else if (this.props.showMonthYearPicker) {
-      if (changedDate !== null && isMonthDisabled(changedDate, this.props)) {
-        return;
-      }
-    } else {
-      if (changedDate !== null && isDayDisabled(changedDate, this.props)) {
-        return;
-      }
-    }
-
-    const {
-      onChange,
-      selectsRange,
-      startDate,
-      endDate,
-      selectsMultiple,
-      selectedDates,
-      minTime,
-      swapRange,
-    } = this.props;
-
-    if (
-      !isEqual(this.props.selected, changedDate) ||
-      this.props.allowSameDay ||
-      selectsRange ||
-      selectsMultiple
-    ) {
-      if (changedDate !== null) {
-        // Preserve previously selected time if only date is currently being changed
-        if (
-          this.props.selected &&
-          (!keepInput ||
-            (!this.props.showTimeSelect &&
-              !this.props.showTimeSelectOnly &&
-              !this.props.showTimeInput))
-        ) {
-          changedDate = setTime(changedDate, {
-            hour: getHours(this.props.selected),
-            minute: getMinutes(this.props.selected),
-            second: getSeconds(this.props.selected),
-          });
-        }
-
-        // If minTime is present then set the time to minTime
-        if (
-          !keepInput &&
-          (this.props.showTimeSelect || this.props.showTimeSelectOnly)
-        ) {
-          if (minTime) {
-            changedDate = setTime(changedDate, {
-              hour: minTime.getHours(),
-              minute: minTime.getMinutes(),
-              second: minTime.getSeconds(),
-            });
-          }
-        }
-
-        if (!this.props.inline) {
-          this.setState({
-            preSelection: changedDate,
-          });
-        }
-        if (!this.props.focusSelectedMonth) {
-          this.setState({ monthSelectedIn: monthSelectedIn });
-        }
-      }
-
-      if (selectsRange) {
-        const onChangeRange = onChange as OnChangeRange | undefined;
-        const noRanges = !startDate && !endDate;
-        const hasStartRange = startDate && !endDate;
-        const hasOnlyEndRange = !startDate && !!endDate;
-        const isRangeFilled = startDate && endDate;
-        if (noRanges) {
-          onChangeRange?.([changedDate, null], event);
-        } else if (hasStartRange) {
-          if (changedDate === null) {
-            onChangeRange?.([null, null], event);
-          } else if (isDateBefore(changedDate, startDate)) {
-            if (swapRange) {
-              onChangeRange?.([changedDate, startDate], event);
-            } else {
-              onChangeRange?.([changedDate, null], event);
-            }
-          } else {
-            onChangeRange?.([startDate, changedDate], event);
-          }
-        } else if (hasOnlyEndRange) {
-          if (changedDate && isDateBefore(changedDate, endDate)) {
-            onChangeRange?.([changedDate, endDate], event);
-          } else {
-            onChangeRange?.([changedDate, null], event);
-          }
-        }
-        if (isRangeFilled) {
-          onChangeRange?.([changedDate, null], event);
-        }
-      } else if (selectsMultiple) {
-        const onChangeMultiple = onChange as OnChangeMultiple | undefined;
-        if (changedDate !== null) {
-          if (!selectedDates?.length) {
-            onChangeMultiple?.([changedDate], event);
-          } else {
-            const isChangedDateAlreadySelected = selectedDates.some(
-              (selectedDate) => isSameDay(selectedDate, changedDate),
-            );
-
-            if (isChangedDateAlreadySelected) {
-              const nextDates = selectedDates.filter(
-                (selectedDate) => !isSameDay(selectedDate, changedDate),
-              );
-
-              onChangeMultiple?.(nextDates, event);
-            } else {
-              onChangeMultiple?.([...selectedDates, changedDate], event);
-            }
-          }
-        }
-      } else {
-        (onChange as OnChangeSingle | undefined)?.(changedDate, event);
-      }
-    }
-
-    if (!keepInput) {
-      this.props.onSelect?.(changedDate, event);
-      this.setState({ inputValue: null });
-    }
+      throw new Error("STUB");
   };
 
   // When checking preSelection via min/maxDate, times need to be manipulated via getStartOfDay/getEndOfDay
   setPreSelection = (date?: Date | null): void => {
-    if (this.props.readOnly) return;
-    const hasMinDate = isDate(this.props.minDate);
-    const hasMaxDate = isDate(this.props.maxDate);
-    let isValidDateSelection = true;
-    if (date) {
-      const dateStartOfDay = getStartOfDay(date);
-      if (hasMinDate && hasMaxDate) {
-        // isDayInRange uses getStartOfDay internally, so not necessary to manipulate times here
-        isValidDateSelection = isDayInRange(
-          date,
-          this.props.minDate,
-          this.props.maxDate,
-        );
-      } else if (hasMinDate) {
-        const minDateStartOfDay = getStartOfDay(this.props.minDate);
-        isValidDateSelection =
-          isAfter(date, minDateStartOfDay) ||
-          isEqual(dateStartOfDay, minDateStartOfDay);
-      } else if (hasMaxDate) {
-        const maxDateEndOfDay = getEndOfDay(this.props.maxDate);
-        isValidDateSelection =
-          isBefore(date, maxDateEndOfDay) ||
-          isEqual(dateStartOfDay, maxDateEndOfDay);
-      }
-    }
-    if (isValidDateSelection) {
-      this.setState({
-        preSelection: date,
-      });
-    }
+      throw new Error("STUB");
   };
 
   toggleCalendar = (): void => {
-    this.setOpen(!this.state.open);
+      throw new Error("STUB");
   };
 
   handleTimeChange = (time: Date, modifyDateType?: "start" | "end"): void => {
-    if (this.props.selectsMultiple) {
-      return;
-    }
-
-    const { selectsRange, startDate, endDate, onChange, timeZone } = this.props;
-
-    if (selectsRange) {
-      const onChangeRange = onChange as OnChangeRange | undefined;
-      // In range mode, apply time to the appropriate date
-      // If modifyDateType is specified, use that to determine which date to modify
-      // Otherwise, use the legacy behavior:
-      // - If we have a startDate but no endDate, apply time to startDate
-      // - If we have both, apply time to endDate
-
-      if (modifyDateType === "start") {
-        // Explicitly modify start date
-        if (startDate) {
-          let changedStartDate = setTime(startDate, {
-            hour: getHours(time),
-            minute: getMinutes(time),
-          });
-          this.setState({
-            preSelection: changedStartDate,
-          });
-          // Convert from zoned time to UTC if timezone is specified
-          if (timeZone) {
-            changedStartDate = fromZonedTime(changedStartDate, timeZone);
-          }
-          onChangeRange?.(
-            [
-              changedStartDate,
-              endDate
-                ? timeZone
-                  ? fromZonedTime(endDate, timeZone)
-                  : endDate
-                : null,
-            ],
-            undefined,
-          );
-        }
-      } else if (modifyDateType === "end") {
-        // Explicitly modify end date
-        if (endDate) {
-          let changedEndDate = setTime(endDate, {
-            hour: getHours(time),
-            minute: getMinutes(time),
-          });
-          this.setState({
-            preSelection: changedEndDate,
-          });
-          // Convert from zoned time to UTC if timezone is specified
-          if (timeZone) {
-            changedEndDate = fromZonedTime(changedEndDate, timeZone);
-          }
-          onChangeRange?.(
-            [
-              startDate
-                ? timeZone
-                  ? fromZonedTime(startDate, timeZone)
-                  : startDate
-                : null,
-              changedEndDate,
-            ],
-            undefined,
-          );
-        }
-      } else {
-        // Legacy behavior for showTimeSelect (single time picker)
-        const hasStartRange = startDate && !endDate;
-
-        if (hasStartRange) {
-          // Apply time to startDate
-          let changedStartDate = setTime(startDate, {
-            hour: getHours(time),
-            minute: getMinutes(time),
-          });
-          this.setState({
-            preSelection: changedStartDate,
-          });
-          // Convert from zoned time to UTC if timezone is specified
-          if (timeZone) {
-            changedStartDate = fromZonedTime(changedStartDate, timeZone);
-          }
-          onChangeRange?.([changedStartDate, null], undefined);
-        } else if (startDate && endDate) {
-          // Apply time to endDate
-          let changedEndDate = setTime(endDate, {
-            hour: getHours(time),
-            minute: getMinutes(time),
-          });
-          this.setState({
-            preSelection: changedEndDate,
-          });
-          // Convert from zoned time to UTC if timezone is specified
-          if (timeZone) {
-            changedEndDate = fromZonedTime(changedEndDate, timeZone);
-          }
-          onChangeRange?.(
-            [
-              timeZone ? fromZonedTime(startDate, timeZone) : startDate,
-              changedEndDate,
-            ],
-            undefined,
-          );
-        } else {
-          // No dates selected yet, just update preSelection
-          const changedDate = setTime(this.getPreSelection(), {
-            hour: getHours(time),
-            minute: getMinutes(time),
-          });
-          this.setState({
-            preSelection: changedDate,
-          });
-        }
-      }
-    } else {
-      // Single date mode (original behavior)
-      const selected = this.props.selected
-        ? this.props.selected
-        : this.getPreSelection();
-      let changedDate = this.props.selected
-        ? time
-        : setTime(selected, {
-            hour: getHours(time),
-            minute: getMinutes(time),
-          });
-
-      this.setState({
-        preSelection: changedDate,
-      });
-
-      // Convert from zoned time to UTC if timezone is specified
-      if (changedDate && timeZone) {
-        changedDate = fromZonedTime(changedDate, timeZone);
-      }
-
-      (this.props.onChange as OnChangeSingle | undefined)?.(changedDate);
-    }
-
-    if (this.props.shouldCloseOnSelect && !this.props.showTimeInput) {
-      this.sendFocusBackToInput();
-      this.setOpen(false);
-    }
-    if (this.props.showTimeInput) {
-      this.setOpen(true);
-    }
-    if (this.props.showTimeSelectOnly || this.props.showTimeSelect) {
-      this.setState({ isRenderAriaLiveMessage: true });
-    }
-    this.setState({ inputValue: null });
+      throw new Error("STUB");
   };
 
   onInputClick = (): void => {
-    if (!this.props.disabled && !this.props.readOnly) {
-      this.setOpen(true);
-    }
-
-    this.props.onInputClick?.();
+      throw new Error("STUB");
   };
 
   handleTimeOnlyArrowKey = (eventKey: string): void => {
-    const currentTime =
-      safeToDate(this.props.selected) || this.state.preSelection || newDate();
-    const timeIntervals = this.props.timeIntervals ?? 30;
-    const dateFormat =
-      this.props.dateFormat ?? DatePicker.defaultProps.dateFormat;
-    const formatStr = Array.isArray(dateFormat) ? dateFormat[0] : dateFormat;
-
-    const baseDate = getStartOfDay(currentTime);
-    const currentMinutes = getHours(currentTime) * 60 + getMinutes(currentTime);
-
-    const maxMinutes = 23 * 60 + 60 - timeIntervals; // Cap at last valid interval of the day
-    let newTime: Date;
-    if (eventKey === KeyType.ArrowUp) {
-      const newMinutes = Math.max(0, currentMinutes - timeIntervals);
-      newTime = addMinutes(baseDate, newMinutes);
-    } else {
-      const newMinutes = Math.min(maxMinutes, currentMinutes + timeIntervals);
-      newTime = addMinutes(baseDate, newMinutes);
-    }
-
-    const formattedTime = formatDate(
-      newTime,
-      formatStr || DatePicker.defaultProps.dateFormat,
-      this.props.locale,
-    );
-    this.setState({
-      preSelection: newTime,
-      inputValue: formattedTime,
-    });
-
-    if (this.props.selectsRange || this.props.selectsMultiple) {
-      return;
-    }
-
-    const selected = this.props.selected
-      ? this.props.selected
-      : this.getPreSelection();
-    const changedDate = this.props.selected
-      ? newTime
-      : setTime(selected, {
-          hour: getHours(newTime),
-          minute: getMinutes(newTime),
-        });
-
-    (this.props.onChange as OnChangeSingle | undefined)?.(changedDate);
-
-    if (this.props.showTimeSelectOnly || this.props.showTimeSelect) {
-      this.setState({ isRenderAriaLiveMessage: true });
-    }
-
-    requestAnimationFrame(() => {
-      this.scrollToTimeOption(newTime);
-    });
+      throw new Error("STUB");
   };
 
   handleTimeOnlyEnterKey = (event: React.KeyboardEvent<HTMLElement>): void => {
-    const inputElement = event.target as HTMLInputElement;
-    const inputValue = inputElement.value;
-    const dateFormat =
-      this.props.dateFormat ?? DatePicker.defaultProps.dateFormat;
-    const timeFormat = this.props.timeFormat || "p";
-
-    const defaultTime =
-      this.state.preSelection || safeToDate(this.props.selected) || newDate();
-    const parsedDate = parseDate(
-      inputValue,
-      dateFormat,
-      this.props.locale,
-      this.props.strictParsing ?? false,
-      defaultTime,
-    );
-
-    let timeToCommit: Date = defaultTime;
-
-    if (parsedDate && isValid(parsedDate)) {
-      timeToCommit = parsedDate;
-    } else {
-      const highlightedItem =
-        this.calendar?.containerRef.current instanceof Element &&
-        this.calendar.containerRef.current.querySelector(
-          ".react-datepicker__time-list-item[tabindex='0']",
-        );
-
-      if (highlightedItem instanceof HTMLElement) {
-        const itemText = highlightedItem.textContent?.trim();
-        if (itemText) {
-          const itemTime = parseDate(
-            itemText,
-            timeFormat,
-            this.props.locale,
-            false,
-            defaultTime,
-          );
-          if (itemTime && isValid(itemTime)) {
-            timeToCommit = itemTime;
-          }
-        }
-      }
-    }
-
-    this.handleTimeChange(timeToCommit);
-    this.setOpen(false);
-    this.sendFocusBackToInput();
+      throw new Error("STUB");
   };
 
   scrollToTimeOption = (time: Date): void => {
-    if (!this.calendar?.containerRef.current) {
-      return;
-    }
-
-    const container = this.calendar.containerRef.current;
-    const timeListItems = Array.from(
-      container.querySelectorAll<HTMLLIElement>(
-        ".react-datepicker__time-list-item",
-      ),
-    );
-
-    let targetItem: HTMLLIElement | null = null;
-    let closestTimeDiff = Infinity;
-    const timeFormat = this.props.timeFormat || "p";
-
-    for (const item of timeListItems) {
-      const itemText = item.textContent?.trim();
-      if (itemText) {
-        const itemTime = parseDate(
-          itemText,
-          timeFormat,
-          this.props.locale,
-          false,
-          time,
-        );
-        if (itemTime && isValid(itemTime)) {
-          if (isSameMinute(itemTime, time)) {
-            targetItem = item;
-            break;
-          }
-          const timeDiff = Math.abs(itemTime.getTime() - time.getTime());
-          if (timeDiff < closestTimeDiff) {
-            closestTimeDiff = timeDiff;
-            targetItem = item;
-          }
-        }
-      }
-    }
-
-    if (targetItem) {
-      timeListItems.forEach((item) => {
-        item.setAttribute("tabindex", "-1");
-      });
-      targetItem.setAttribute("tabindex", "0");
-
-      targetItem.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
+      throw new Error("STUB");
   };
 
   onInputKeyDown = (event: React.KeyboardEvent<HTMLElement>): void => {
-    this.props.onKeyDown?.(event);
-    const eventKey = event.key;
-
-    if (
-      !this.state.open &&
-      !this.props.inline &&
-      !this.props.preventOpenOnFocus
-    ) {
-      if (
-        eventKey === KeyType.ArrowDown ||
-        eventKey === KeyType.ArrowUp ||
-        eventKey === KeyType.Enter
-      ) {
-        this.onInputClick?.();
-      }
-      return;
-    }
-
-    if (this.state.open && this.props.showTimeSelectOnly) {
-      if (eventKey === KeyType.ArrowDown || eventKey === KeyType.ArrowUp) {
-        event.preventDefault();
-        this.handleTimeOnlyArrowKey(eventKey);
-        return;
-      }
-
-      if (eventKey === KeyType.Enter) {
-        event.preventDefault();
-        this.handleTimeOnlyEnterKey(event);
-        return;
-      }
-    }
-
-    // if calendar is open, these keys will focus the selected item
-    if (this.state.open) {
-      if (eventKey === KeyType.ArrowDown || eventKey === KeyType.ArrowUp) {
-        event.preventDefault();
-        const selectorString = this.props.showTimeSelectOnly
-          ? ".react-datepicker__time-list-item[tabindex='0']"
-          : this.props.showWeekPicker && this.props.showWeekNumbers
-            ? '.react-datepicker__week-number[tabindex="0"]'
-            : this.props.showFullMonthYearPicker ||
-                this.props.showMonthYearPicker
-              ? '.react-datepicker__month-text[tabindex="0"]'
-              : '.react-datepicker__day[tabindex="0"]';
-        const selectedItem =
-          this.calendar?.containerRef.current instanceof Element &&
-          this.calendar.containerRef.current.querySelector(selectorString);
-        selectedItem instanceof HTMLElement &&
-          selectedItem.focus({ preventScroll: true });
-
-        return;
-      }
-
-      const copy = newDate(this.state.preSelection);
-      if (eventKey === KeyType.Enter) {
-        event.preventDefault();
-        (event.target as HTMLInputElement).blur();
-        if (
-          this.inputOk() &&
-          this.state.lastPreSelectChange === PRESELECT_CHANGE_VIA_NAVIGATE
-        ) {
-          this.handleSelect(copy, event);
-          !this.props.shouldCloseOnSelect && this.setPreSelection(copy);
-        } else {
-          this.setOpen(false);
-        }
-      } else if (eventKey === KeyType.Escape) {
-        event.preventDefault();
-        (event.target as HTMLInputElement).blur();
-        this.sendFocusBackToInput();
-        this.setOpen(false);
-      } else if (eventKey === KeyType.Tab) {
-        this.setOpen(false);
-      }
-
-      if (!this.inputOk()) {
-        this.props.onInputError?.({ code: 1, msg: INPUT_ERR_1 });
-      }
-    }
+      throw new Error("STUB");
   };
 
   onPortalKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-    const eventKey = event.key;
-    if (eventKey === KeyType.Escape) {
-      event.preventDefault();
-      this.setState(
-        {
-          preventFocus: true,
-        },
-        () => {
-          this.setOpen(false);
-          setTimeout(() => {
-            this.setFocus();
-            this.setState({ preventFocus: false });
-          });
-        },
-      );
-    }
+      throw new Error("STUB");
   };
 
   // keyDown events passed down to day.jsx
   onDayKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const {
-      minDate,
-      maxDate,
-      disabledKeyboardNavigation,
-      showWeekPicker,
-      shouldCloseOnSelect,
-      locale,
-      calendarStartDay,
-      adjustDateOnChange,
-      inline,
-    } = this.props;
-    this.props.onKeyDown?.(event);
-    if (disabledKeyboardNavigation) return;
-    const eventKey = event.key as KeyType;
-    const isShiftKeyActive = event.shiftKey;
-
-    const copy = newDate(this.state.preSelection);
-
-    const calculateNewDate = (eventKey: KeyType, date: Date): Date => {
-      let newCalculatedDate = date;
-      switch (eventKey) {
-        case KeyType.ArrowRight:
-          newCalculatedDate = showWeekPicker
-            ? addWeeks(date, 1)
-            : addDays(date, 1);
-          break;
-        case KeyType.ArrowLeft:
-          newCalculatedDate = showWeekPicker
-            ? subWeeks(date, 1)
-            : subDays(date, 1);
-          break;
-        case KeyType.ArrowUp:
-          newCalculatedDate = subWeeks(date, 1);
-          break;
-        case KeyType.ArrowDown:
-          newCalculatedDate = addWeeks(date, 1);
-          break;
-        case KeyType.PageUp:
-          newCalculatedDate = isShiftKeyActive
-            ? subYears(date, 1)
-            : subMonths(date, 1);
-          break;
-        case KeyType.PageDown:
-          newCalculatedDate = isShiftKeyActive
-            ? addYears(date, 1)
-            : addMonths(date, 1);
-          break;
-        case KeyType.Home:
-          newCalculatedDate = getStartOfWeek(date, locale, calendarStartDay);
-          break;
-        case KeyType.End:
-          newCalculatedDate = getEndOfWeek(date);
-          break;
-      }
-      return newCalculatedDate;
-    };
-
-    const getNewDate = (eventKey: KeyType, date: Date): Date => {
-      const MAX_ITERATIONS = 40;
-      let eventKeyCopy = eventKey;
-      let validDateFound = false;
-      let iterations = 0;
-      let newSelection = calculateNewDate(eventKey, date);
-
-      while (!validDateFound) {
-        if (iterations >= MAX_ITERATIONS) {
-          newSelection = date;
-          break;
-        }
-        // if minDate exists and the new selection is before the min date, get the nearest date that isn't disabled
-        if (minDate && newSelection < minDate) {
-          eventKeyCopy = KeyType.ArrowRight;
-          newSelection = isDayDisabled(minDate, this.props)
-            ? calculateNewDate(eventKeyCopy, newSelection)
-            : minDate;
-        }
-
-        // if maxDate exists and the new selection is after the max date, get the nearest date that isn't disabled
-        if (maxDate && newSelection > maxDate) {
-          eventKeyCopy = KeyType.ArrowLeft;
-          newSelection = isDayDisabled(maxDate, this.props)
-            ? calculateNewDate(eventKeyCopy, newSelection)
-            : maxDate;
-        }
-
-        if (isDayDisabled(newSelection, this.props)) {
-          // if PageUp and Home is pressed to a disabled date, it will try to find the next available date after
-          if (
-            eventKeyCopy === KeyType.PageUp ||
-            eventKeyCopy === KeyType.Home
-          ) {
-            eventKeyCopy = KeyType.ArrowRight;
-          }
-
-          // if PageDown and End is pressed to a disabled date, it will try to find the next available date before
-          if (
-            eventKeyCopy === KeyType.PageDown ||
-            eventKeyCopy === KeyType.End
-          ) {
-            eventKeyCopy = KeyType.ArrowLeft;
-          }
-          newSelection = calculateNewDate(eventKeyCopy, newSelection);
-        } else {
-          validDateFound = true;
-        }
-        iterations++;
-      }
-
-      return newSelection;
-    };
-
-    if (eventKey === KeyType.Enter) {
-      event.preventDefault();
-      this.handleSelect(copy, event);
-      !shouldCloseOnSelect && this.setPreSelection(copy);
-      return;
-    } else if (eventKey === KeyType.Escape) {
-      event.preventDefault();
-
-      this.setOpen(false);
-      if (!this.inputOk()) {
-        this.props.onInputError?.({ code: 1, msg: INPUT_ERR_1 });
-      }
-      return;
-    }
-
-    let newSelection = null;
-    switch (eventKey) {
-      case KeyType.ArrowLeft:
-      case KeyType.ArrowRight:
-      case KeyType.ArrowUp:
-      case KeyType.ArrowDown:
-      case KeyType.PageUp:
-      case KeyType.PageDown:
-      case KeyType.Home:
-      case KeyType.End:
-        newSelection = getNewDate(eventKey, copy);
-        break;
-    }
-    if (!newSelection) {
-      this.props.onInputError?.({ code: 1, msg: INPUT_ERR_1 });
-      return;
-    }
-    event.preventDefault();
-    this.setState({ lastPreSelectChange: PRESELECT_CHANGE_VIA_NAVIGATE });
-    if (adjustDateOnChange) {
-      this.setSelected(newSelection);
-    }
-    this.setPreSelection(newSelection);
-    // In inline mode, always set shouldFocusDayInline to true when navigating via keyboard.
-    // This ensures focus is properly transferred to the new day element regardless of
-    // whether the month changed. The user initiated this navigation from a focused day,
-    // so we should always focus the destination day.
-    if (inline) {
-      this.setState({ shouldFocusDayInline: true });
-    }
+      throw new Error("STUB");
   };
 
   // handle generic key down events in the popper that do not adjust or select dates
   // ex: while focusing prev and next month buttons
   onPopperKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
-    const eventKey = event.key;
-    if (eventKey === KeyType.Escape) {
-      event.preventDefault();
-      this.sendFocusBackToInput();
-      this.setOpen(false);
-    }
+      throw new Error("STUB");
   };
 
   onClearClick = (event?: React.MouseEvent<HTMLButtonElement>): void => {
-    if (event) {
-      if (event.preventDefault) {
-        event.preventDefault();
-      }
-    }
-
-    this.sendFocusBackToInput();
-
-    const { selectsRange, onChange } = this.props;
-    if (selectsRange) {
-      (onChange as OnChangeRange | undefined)?.([null, null], event);
-    } else {
-      (onChange as OnChangeSingle | undefined)?.(null, event);
-    }
-
-    this.setState({ inputValue: null });
+      throw new Error("STUB");
   };
 
   clear = () => {
-    this.onClearClick();
+      throw new Error("STUB");
   };
 
   onScroll = (event: Event): void => {
-    if (
-      typeof this.props.closeOnScroll === "boolean" &&
-      this.props.closeOnScroll
-    ) {
-      if (
-        event.target === document ||
-        event.target === document.documentElement ||
-        event.target === document.body
-      ) {
-        this.setOpen(false);
-      }
-    } else if (typeof this.props.closeOnScroll === "function") {
-      if (this.props.closeOnScroll(event)) {
-        this.setOpen(false);
-      }
-    }
+      throw new Error("STUB");
   };
 
   handleMonthSelectedInChange = (monthSelectedIn: number): void => {
-    this.setState({ monthSelectedIn });
+      throw new Error("STUB");
   };
 
   renderCalendar = () => {
-    if (!this.props.inline && !this.isCalendarOpen()) {
-      return null;
-    }
-
-    const { timeZone, selected, startDate, endDate, selectedDates } =
-      this.props;
-
-    // Convert dates to zoned time for calendar display when timeZone is specified
-    // This ensures the calendar highlights the correct day in the target timezone
-    const zonedSelected =
-      selected && timeZone ? toZonedTime(selected, timeZone) : selected;
-    const zonedStartDate =
-      startDate && timeZone ? toZonedTime(startDate, timeZone) : startDate;
-    const zonedEndDate =
-      endDate && timeZone ? toZonedTime(endDate, timeZone) : endDate;
-    const zonedSelectedDates =
-      selectedDates && timeZone
-        ? selectedDates.map((date) => toZonedTime(date, timeZone))
-        : selectedDates;
-
-    return (
-      <Calendar
-        showMonthYearDropdown={undefined}
-        ref={(elem) => {
-          this.calendar = elem;
-        }}
-        {...this.props}
-        {...this.state}
-        // Override date props with zoned time versions for correct display
-        selected={zonedSelected}
-        startDate={zonedStartDate}
-        endDate={zonedEndDate}
-        selectedDates={zonedSelectedDates}
-        setOpen={this.setOpen}
-        dateFormat={
-          this.props.dateFormatCalendar ??
-          DatePicker.defaultProps.dateFormatCalendar
-        }
-        onSelect={this.handleSelect}
-        onClickOutside={this.handleCalendarClickOutside}
-        holidays={getHolidaysMap(this.modifyHolidays())}
-        outsideClickIgnoreClass={this.props.outsideClickIgnoreClass}
-        onDropdownFocus={this.handleDropdownFocus}
-        onTimeChange={this.handleTimeChange}
-        className={this.props.calendarClassName}
-        container={this.props.calendarContainer}
-        handleOnKeyDown={this.props.onKeyDown}
-        handleOnDayKeyDown={this.onDayKeyDown}
-        setPreSelection={this.setPreSelection}
-        dropdownMode={
-          this.props.dropdownMode ?? DatePicker.defaultProps.dropdownMode
-        }
-        onMonthSelectedInChange={this.handleMonthSelectedInChange}
-      >
-        {this.props.children}
-      </Calendar>
-    );
+      throw new Error("STUB");
   };
 
   renderAriaLiveRegion = () => {
-    const { locale } = this.props;
-    const dateFormat =
-      this.props.dateFormat ?? DatePicker.defaultProps.dateFormat;
-    const isContainsTime =
-      this.props.showTimeInput || this.props.showTimeSelect;
-    const longDateFormat = isContainsTime ? "PPPPp" : "PPPP";
-    let ariaLiveMessage;
-
-    if (this.props.selectsRange) {
-      ariaLiveMessage = `Selected start date: ${safeDateFormat(
-        this.props.startDate,
-        {
-          dateFormat: longDateFormat,
-          locale,
-        },
-      )}. ${
-        this.props.endDate
-          ? "End date: " +
-            safeDateFormat(this.props.endDate, {
-              dateFormat: longDateFormat,
-              locale,
-            })
-          : ""
-      }`;
-    } else {
-      if (this.props.showTimeSelectOnly) {
-        ariaLiveMessage = `Selected time: ${safeDateFormat(
-          this.props.selected,
-          { dateFormat, locale },
-        )}`;
-      } else if (this.props.showYearPicker) {
-        ariaLiveMessage = `Selected year: ${safeDateFormat(
-          this.props.selected,
-          { dateFormat: "yyyy", locale },
-        )}`;
-      } else if (this.props.showMonthYearPicker) {
-        ariaLiveMessage = `Selected month: ${safeDateFormat(
-          this.props.selected,
-          { dateFormat: "MMMM yyyy", locale },
-        )}`;
-      } else if (this.props.showQuarterYearPicker) {
-        ariaLiveMessage = `Selected quarter: ${safeDateFormat(
-          this.props.selected,
-          {
-            dateFormat: "yyyy, QQQ",
-            locale,
-          },
-        )}`;
-      } else {
-        ariaLiveMessage = `Selected date: ${safeDateFormat(
-          this.props.selected,
-          {
-            dateFormat: longDateFormat,
-            locale,
-          },
-        )}`;
-      }
-    }
-
-    return (
-      <span
-        role="alert"
-        aria-live="polite"
-        className="react-datepicker__aria-live"
-      >
-        {ariaLiveMessage}
-      </span>
-    );
+      throw new Error("STUB");
   };
 
   renderDateInput = () => {
-    const className = clsx(this.props.className, {
-      [this.props.outsideClickIgnoreClass ||
-      DatePicker.defaultProps.outsideClickIgnoreClass]: this.state.open,
-    });
-
-    const customInput = this.props.customInput || <input type="text" />;
-    const customInputRef = this.props.customInputRef || "ref";
-
-    // Build aria props object, only including defined values to avoid
-    // overwriting aria attributes that may be set on the custom input
-    const ariaProps: Record<string, string> = {};
-    const ariaDescribedBy =
-      this.props["aria-describedby"] ?? this.props.ariaDescribedBy;
-    const ariaInvalid = this.props["aria-invalid"] ?? this.props.ariaInvalid;
-    const ariaLabel = this.props["aria-label"] ?? this.props.ariaLabel;
-    const ariaLabelledBy =
-      this.props["aria-labelledby"] ?? this.props.ariaLabelledBy;
-    const ariaRequired = this.props["aria-required"] ?? this.props.ariaRequired;
-
-    if (ariaDescribedBy != null)
-      ariaProps["aria-describedby"] = ariaDescribedBy;
-    if (ariaInvalid != null) ariaProps["aria-invalid"] = ariaInvalid;
-    if (ariaLabel != null) ariaProps["aria-label"] = ariaLabel;
-    if (ariaLabelledBy != null) ariaProps["aria-labelledby"] = ariaLabelledBy;
-    if (ariaRequired != null) ariaProps["aria-required"] = ariaRequired;
-
-    return cloneElement(customInput, {
-      [customInputRef]: (input: HTMLElement | null) => {
-        this.input = input;
-      },
-      value: this.getInputValue(),
-      onBlur: this.handleBlur,
-      onChange: this.handleChange,
-      onClick: this.onInputClick,
-      onFocus: this.handleFocus,
-      onKeyDown: this.onInputKeyDown,
-      id: this.props.id,
-      name: this.props.name,
-      form: this.props.form,
-      autoFocus: this.props.autoFocus,
-      placeholder: this.props.placeholderText,
-      disabled: this.props.disabled,
-      autoComplete: this.props.autoComplete,
-      className: clsx(customInput.props.className, className),
-      title: this.props.title,
-      readOnly: this.props.readOnly,
-      required: this.props.required,
-      tabIndex: this.props.tabIndex,
-      ...ariaProps,
-    });
+      throw new Error("STUB");
   };
 
   renderClearButton = (): React.ReactElement | null => {
-    const {
-      isClearable,
-      disabled,
-      selected,
-      startDate,
-      endDate,
-      clearButtonTitle,
-      clearButtonClassName = "",
-      ariaLabelClose = "Close",
-      selectedDates,
-      readOnly,
-    } = this.props;
-    if (
-      isClearable &&
-      !readOnly &&
-      (selected != null ||
-        startDate != null ||
-        endDate != null ||
-        selectedDates?.length)
-    ) {
-      return (
-        <button
-          type="button"
-          className={clsx(
-            "react-datepicker__close-icon",
-            clearButtonClassName,
-            { "react-datepicker__close-icon--disabled": disabled },
-          )}
-          disabled={disabled}
-          aria-label={ariaLabelClose}
-          onClick={this.onClearClick}
-          title={clearButtonTitle}
-          tabIndex={-1}
-        />
-      );
-    } else {
-      return null;
-    }
+      throw new Error("STUB");
   };
 
   renderInputContainer(): React.ReactElement {

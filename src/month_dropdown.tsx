@@ -34,59 +34,19 @@ export default class MonthDropdown extends Component<
   };
 
   renderSelectOptions = (monthNames: string[]): React.ReactElement[] =>
-    monthNames.map<React.ReactElement>(
-      (m: string, i: number): React.ReactElement => (
-        <option key={m} value={i}>
-          {m}
-        </option>
-      ),
-    );
+    { throw new Error("STUB"); };
 
-  renderSelectMode = (monthNames: string[]): React.ReactElement => (
-    <select
-      value={this.props.month}
-      className="react-datepicker__month-select"
-      onChange={(e) => this.onChange(parseInt(e.target.value))}
-    >
-      {this.renderSelectOptions(monthNames)}
-    </select>
-  );
+  renderSelectMode = (monthNames: string[]): React.ReactElement => { throw new Error("STUB"); };
 
   renderReadView = (
     visible: boolean,
     monthNames: string[],
-  ): React.ReactElement => (
-    <button
-      key="read"
-      type="button"
-      style={{ visibility: visible ? "visible" : "hidden" }}
-      className="react-datepicker__month-read-view"
-      onClick={this.toggleDropdown}
-    >
-      <span className="react-datepicker__month-read-view--down-arrow" />
-      <span className="react-datepicker__month-read-view--selected-month">
-        {monthNames[this.props.month]}
-      </span>
-    </button>
-  );
+  ): React.ReactElement => { throw new Error("STUB"); };
 
-  renderDropdown = (monthNames: string[]): React.ReactElement => (
-    <MonthDropdownOptions
-      key="dropdown"
-      {...this.props}
-      monthNames={monthNames}
-      onChange={this.onChange}
-      onCancel={this.toggleDropdown}
-    />
-  );
+  renderDropdown = (monthNames: string[]): React.ReactElement => { throw new Error("STUB"); };
 
   renderScrollMode = (monthNames: string[]): React.ReactElement[] => {
-    const { dropdownVisible } = this.state;
-    const result = [this.renderReadView(!dropdownVisible, monthNames)];
-    if (dropdownVisible) {
-      result.unshift(this.renderDropdown(monthNames));
-    }
-    return result;
+      throw new Error("STUB");
   };
 
   onChange = (month: number): void => {
@@ -97,15 +57,13 @@ export default class MonthDropdown extends Component<
   };
 
   toggleDropdown = (): void =>
-    this.setState({
-      dropdownVisible: !this.state.dropdownVisible,
-    });
+    { throw new Error("STUB"); };
 
   render(): React.ReactElement {
     const monthNames: string[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
       this.props.useShortMonthInDropdown
-        ? (m: number): string => getMonthShortInLocale(m, this.props.locale)
-        : (m: number): string => getMonthInLocale(m, this.props.locale),
+        ? (m: number): string => { throw new Error("STUB"); }
+        : (m: number): string => { throw new Error("STUB"); },
     );
 
     let renderedDropdown: React.ReactElement | React.ReactElement[];

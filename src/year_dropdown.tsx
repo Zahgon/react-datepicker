@@ -32,69 +32,21 @@ export default class YearDropdown extends Component<
   };
 
   renderSelectOptions = (): React.ReactElement[] => {
-    const minYear: number = this.props.minDate
-      ? getYear(this.props.minDate)
-      : 1900;
-    const maxYear: number = this.props.maxDate
-      ? getYear(this.props.maxDate)
-      : 2100;
-
-    const options: React.ReactElement[] = [];
-    for (let i = minYear; i <= maxYear; i++) {
-      options.push(
-        <option key={i} value={i}>
-          {i}
-        </option>,
-      );
-    }
-    return options;
+      throw new Error("STUB");
   };
 
   onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    this.onChange(parseInt(event.target.value));
+      throw new Error("STUB");
   };
 
-  renderSelectMode = (): React.ReactElement => (
-    <select
-      value={this.props.year}
-      className="react-datepicker__year-select"
-      onChange={this.onSelectChange}
-    >
-      {this.renderSelectOptions()}
-    </select>
-  );
+  renderSelectMode = (): React.ReactElement => { throw new Error("STUB"); };
 
-  renderReadView = (visible: boolean): React.ReactElement => (
-    <button
-      key="read"
-      type="button"
-      style={{ visibility: visible ? "visible" : "hidden" }}
-      className="react-datepicker__year-read-view"
-      onClick={this.toggleDropdown}
-    >
-      <span className="react-datepicker__year-read-view--down-arrow" />
-      <span className="react-datepicker__year-read-view--selected-year">
-        {this.props.year}
-      </span>
-    </button>
-  );
+  renderReadView = (visible: boolean): React.ReactElement => { throw new Error("STUB"); };
 
-  renderDropdown = (): React.ReactElement => (
-    <YearDropdownOptions
-      key="dropdown"
-      {...this.props}
-      onChange={this.onChange}
-      onCancel={this.toggleDropdown}
-    />
-  );
+  renderDropdown = (): React.ReactElement => { throw new Error("STUB"); };
 
   renderScrollMode = (): React.ReactElement[] => {
-    const { dropdownVisible } = this.state;
-    const result = [this.renderReadView(!dropdownVisible)];
-    if (dropdownVisible) {
-      result.unshift(this.renderDropdown());
-    }
-    return result;
+      throw new Error("STUB");
   };
 
   onChange = (year: number): void => {
@@ -104,35 +56,25 @@ export default class YearDropdown extends Component<
   };
 
   toggleDropdown = (event?: React.MouseEvent<HTMLButtonElement>): void => {
-    this.setState(
-      {
-        dropdownVisible: !this.state.dropdownVisible,
-      },
-      () => {
-        if (this.props.adjustDateOnChange) {
-          this.handleYearChange(this.props.date, event);
-        }
-      },
-    );
+      throw new Error("STUB");
   };
 
   handleYearChange = (
     date: Date,
     event?: React.MouseEvent<HTMLButtonElement>,
   ): void => {
-    this.onSelect?.(date, event);
-    this.setOpen();
+      throw new Error("STUB");
   };
 
   onSelect = (
     date: Date,
     event?: React.MouseEvent<HTMLButtonElement>,
   ): void => {
-    this.props.onSelect?.(date, event);
+      throw new Error("STUB");
   };
 
   setOpen = (): void => {
-    this.props.setOpen?.(true);
+      throw new Error("STUB");
   };
 
   render(): React.ReactElement {

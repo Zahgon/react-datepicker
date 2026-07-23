@@ -50,61 +50,15 @@ export default class InputTime extends Component<
     props: InputTimeProps,
     state: InputTimeState,
   ) {
-    if (props.timeString !== state.time) {
-      return {
-        time: props.timeString,
-      };
-    }
-
-    // Return null to indicate no change to state.
-    return null;
+      throw new Error("STUB");
   }
 
   onTimeChange = (time: InputTimeState["time"]) => {
-    this.setState({ time });
-
-    const { date: propDate } = this.props;
-    const isPropDateValid = propDate instanceof Date && !isNaN(+propDate);
-    const date = isPropDateValid ? propDate : new Date();
-
-    if (time?.includes(":")) {
-      const [hours, minutes] = time.split(":") as [string, string];
-      date.setHours(Number(hours));
-      date.setMinutes(Number(minutes));
-    }
-
-    this.props.onChange?.(date);
+      throw new Error("STUB");
   };
 
   renderTimeInput = () => {
-    const { time } = this.state;
-    const { date, timeString, customTimeInput } = this.props;
-
-    if (customTimeInput) {
-      return cloneElement(customTimeInput, {
-        date,
-        value: time,
-        onChange: this.onTimeChange,
-      });
-    }
-
-    return (
-      <input
-        type="time"
-        className="react-datepicker-time__input"
-        placeholder="Time"
-        name="time-input"
-        ref={this.inputRef}
-        onClick={() => {
-          this.inputRef.current?.focus();
-        }}
-        required
-        value={time}
-        onChange={(event) => {
-          this.onTimeChange(event.target.value || timeString);
-        }}
-      />
-    );
+      throw new Error("STUB");
   };
 
   render() {

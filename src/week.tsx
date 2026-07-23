@@ -46,35 +46,21 @@ interface WeekProps
 
 export default class Week extends Component<WeekProps> {
   static get defaultProps() {
-    return {
-      shouldCloseOnSelect: true,
-    };
+      throw new Error("STUB");
   }
 
   isDisabled = (day: Date): boolean =>
-    isDayDisabled(day, {
-      minDate: this.props.minDate,
-      maxDate: this.props.maxDate,
-      excludeDates: this.props.excludeDates,
-      excludeDateIntervals: this.props.excludeDateIntervals,
-      includeDateIntervals: this.props.includeDateIntervals,
-      includeDates: this.props.includeDates,
-      filterDate: this.props.filterDate,
-    });
+    { throw new Error("STUB"); };
 
   handleDayClick = (
     day: Date,
     event: React.MouseEvent<HTMLDivElement>,
   ): void => {
-    if (this.props.onDayClick) {
-      this.props.onDayClick(day, event);
-    }
+      throw new Error("STUB");
   };
 
   handleDayMouseEnter = (day: Date): void => {
-    if (this.props.onDayMouseEnter) {
-      this.props.onDayMouseEnter(day);
-    }
+      throw new Error("STUB");
   };
 
   handleWeekClick = (
@@ -82,110 +68,26 @@ export default class Week extends Component<WeekProps> {
     weekNumber: number,
     event: React.MouseEvent<HTMLDivElement>,
   ) => {
-    let enabledWeekDay = new Date(day);
-
-    for (let i = 0; i < 7; i++) {
-      const processingDay = new Date(day);
-      processingDay.setDate(processingDay.getDate() + i);
-
-      const isEnabled = !this.isDisabled(processingDay);
-
-      if (isEnabled) {
-        enabledWeekDay = processingDay;
-        break;
-      }
-    }
-
-    if (typeof this.props.onWeekSelect === "function") {
-      this.props.onWeekSelect(enabledWeekDay, weekNumber, event);
-    }
-    if (this.props.showWeekPicker) {
-      this.handleDayClick(enabledWeekDay, event);
-    }
-    if (
-      this.props.shouldCloseOnSelect ??
-      Week.defaultProps.shouldCloseOnSelect
-    ) {
-      this.props.setOpen?.(false);
-    }
+      throw new Error("STUB");
   };
 
   formatWeekNumber = (date: Date): number => {
-    if (this.props.formatWeekNumber) {
-      return this.props.formatWeekNumber(date);
-    }
-    return getWeek(date);
+      throw new Error("STUB");
   };
 
   isWeekDisabled = (): boolean => {
-    const startOfWeek = this.startOfWeek();
-    const endOfWeek = addDays(startOfWeek, 6);
-
-    let processingDate = new Date(startOfWeek);
-    while (processingDate <= endOfWeek) {
-      if (!this.isDisabled(processingDate)) return false;
-
-      processingDate = addDays(processingDate, 1);
-    }
-
-    return true;
+      throw new Error("STUB");
   };
 
   renderDays = () => {
-    const startOfWeek = this.startOfWeek();
-    const days = [];
-    const weekNumber = this.formatWeekNumber(startOfWeek);
-    if (this.props.showWeekNumber) {
-      const onClickAction =
-        this.props.onWeekSelect || this.props.showWeekPicker
-          ? this.handleWeekClick.bind(this, startOfWeek, weekNumber)
-          : undefined;
-      days.push(
-        <WeekNumber
-          key="W"
-          {...Week.defaultProps}
-          {...this.props}
-          weekNumber={weekNumber}
-          isWeekDisabled={this.isWeekDisabled()}
-          date={startOfWeek}
-          onClick={onClickAction}
-        />,
-      );
-    }
-    return days.concat(
-      [0, 1, 2, 3, 4, 5, 6].map<React.ReactElement>(
-        (offset: number): React.ReactElement => {
-          const day = addDays(startOfWeek, offset);
-          return (
-            <Day
-              {...Week.defaultProps}
-              {...this.props}
-              ariaLabelPrefixWhenEnabled={this.props.chooseDayAriaLabelPrefix}
-              ariaLabelPrefixWhenDisabled={
-                this.props.disabledDayAriaLabelPrefix
-              }
-              key={day.valueOf()}
-              day={day}
-              onClick={this.handleDayClick.bind(this, day)}
-              onMouseEnter={this.handleDayMouseEnter.bind(this, day)}
-            />
-          );
-        },
-      ),
-    );
+      throw new Error("STUB");
   };
 
   startOfWeek = (): Date =>
-    getStartOfWeek(
-      this.props.day,
-      this.props.locale,
-      this.props.calendarStartDay,
-    );
+    { throw new Error("STUB"); };
 
   isKeyboardSelected = (): boolean =>
-    !this.props.disabledKeyboardNavigation &&
-    !isSameDay(this.startOfWeek(), this.props.selected) &&
-    isSameDay(this.startOfWeek(), this.props.preSelection);
+    { throw new Error("STUB"); };
 
   render(): React.ReactElement {
     const weekNumberClasses = {

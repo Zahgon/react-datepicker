@@ -24,21 +24,7 @@ function generateMonthYears(
   maxDate: Date | undefined,
   currentDate: Date,
 ): Date[] {
-  const list = [];
-
-  // Use defaults if minDate/maxDate not provided
-  const effectiveMinDate = minDate ?? subYears(currentDate, DEFAULT_YEAR_RANGE);
-  const effectiveMaxDate = maxDate ?? addYears(currentDate, DEFAULT_YEAR_RANGE);
-
-  let currDate = getStartOfMonth(effectiveMinDate);
-  const lastDate = getStartOfMonth(effectiveMaxDate);
-
-  while (!isAfter(currDate, lastDate)) {
-    list.push(newDate(currDate));
-
-    currDate = addMonths(currDate, 1);
-  }
-  return list;
+    throw new Error("STUB");
 }
 
 interface MonthYearDropdownOptionsProps {
@@ -73,42 +59,13 @@ export default class MonthYearDropdownOptions extends Component<
   }
 
   renderOptions = (): React.ReactElement[] => {
-    return this.state.monthYearsList.map<React.ReactElement>(
-      (monthYear: Date): React.ReactElement => {
-        const monthYearPoint = getTime(monthYear);
-        const isSameMonthYear =
-          isSameYear(this.props.date, monthYear) &&
-          isSameMonth(this.props.date, monthYear);
-
-        return (
-          <div
-            className={
-              isSameMonthYear
-                ? "react-datepicker__month-year-option--selected_month-year"
-                : "react-datepicker__month-year-option"
-            }
-            key={monthYearPoint}
-            onClick={this.onChange.bind(this, monthYearPoint)}
-            aria-selected={isSameMonthYear ? "true" : undefined}
-          >
-            {isSameMonthYear ? (
-              <span className="react-datepicker__month-year-option--selected">
-                ✓
-              </span>
-            ) : (
-              ""
-            )}
-            {formatDate(monthYear, this.props.dateFormat, this.props.locale)}
-          </div>
-        );
-      },
-    );
+      throw new Error("STUB");
   };
 
   onChange = (monthYear: number): void => this.props.onChange(monthYear);
 
   handleClickOutside = (): void => {
-    this.props.onCancel();
+      throw new Error("STUB");
   };
 
   render(): React.ReactElement {

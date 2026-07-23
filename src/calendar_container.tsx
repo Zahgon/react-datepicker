@@ -15,21 +15,7 @@ const CalendarContainer: React.FC<CalendarContainerProps> = function ({
   children,
   inline,
 }: CalendarContainerProps) {
-  const ariaLabel = showTimeSelectOnly
-    ? "Choose Time"
-    : `Choose Date${showTime ? " and Time" : ""}`;
-
-  return (
-    <div
-      className={className}
-      aria-label={ariaLabel}
-      role={inline ? undefined : "dialog"}
-      aria-modal={inline ? undefined : "true"}
-      translate="no"
-    >
-      {children}
-    </div>
-  );
+    throw new Error("STUB");
 };
 
 export default CalendarContainer;

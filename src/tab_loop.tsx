@@ -17,11 +17,7 @@ const focusableFilter = (
     | HTMLTextAreaElement
     | HTMLAnchorElement,
 ) => {
-  if (node instanceof HTMLAnchorElement) {
-    return node.tabIndex !== -1;
-  }
-
-  return !node.disabled && node.tabIndex !== -1;
+    throw new Error("STUB");
 };
 
 /**
@@ -65,24 +61,14 @@ export default class TabLoop extends Component<TabLoopProps> {
    * @returns An array of all tabbable and visible children of the `TabLoop` component.
    */
   getTabChildren = () =>
-    Array.prototype.slice
-      .call(
-        this.tabLoopRef.current?.querySelectorAll(focusableElementsSelector),
-        1,
-        -1,
-      )
-      .filter(focusableFilter);
+    { throw new Error("STUB"); };
 
   handleFocusStart = () => {
-    const tabChildren = this.getTabChildren();
-    tabChildren &&
-      tabChildren.length > 1 &&
-      tabChildren[tabChildren.length - 1].focus();
+      throw new Error("STUB");
   };
 
   handleFocusEnd = () => {
-    const tabChildren = this.getTabChildren();
-    tabChildren && tabChildren.length > 1 && tabChildren[0].focus();
+      throw new Error("STUB");
   };
 
   render(): React.ReactNode {

@@ -26,21 +26,11 @@ class Portal extends Component<PortalProps> {
   }
 
   componentDidMount() {
-    this.portalRoot = (this.props.portalHost || document).getElementById(
-      this.props.portalId,
-    );
-    if (!this.portalRoot) {
-      this.portalRoot = document.createElement("div");
-      this.portalRoot.setAttribute("id", this.props.portalId);
-      (this.props.portalHost || document.body).appendChild(this.portalRoot);
-    }
-    this.portalRoot.appendChild(this.el);
+      throw new Error("STUB");
   }
 
   componentWillUnmount() {
-    if (this.portalRoot) {
-      this.portalRoot.removeChild(this.el);
-    }
+      throw new Error("STUB");
   }
 
   private el: HTMLDivElement;
